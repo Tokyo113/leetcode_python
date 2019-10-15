@@ -86,6 +86,8 @@ def smallSum(arr):
      return arr, res
 
 
+
+
 if __name__ == '__main__':
     a = [1,3,-4,2,5, 7,10,-12,55, 45,9,100]
     print(method1(a))
