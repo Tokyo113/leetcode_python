@@ -23,6 +23,7 @@ def method1(arr1, arr2):
     :param arr1:
     :param arr2:
     """
+    arr = []
     for ele in arr2:
         flag = 0
         # if ele not in arr1:
@@ -32,7 +33,8 @@ def method1(arr1, arr2):
                 flag = 1
                 break
         if not flag:
-            print(ele)
+            arr.append(ele)
+    return arr
 
 
 def method2(arr1, arr2):
@@ -41,10 +43,25 @@ def method2(arr1, arr2):
     :param arr1:
     :param arr2:
     """
+    arr = []
     for ele in arr2:
-        res = binary_search(arr1, ele)
-        if res == -1:
-            print(ele)
+        L, R = 0, len(arr1)-1
+        found = False
+        while(L <= R):
+            # 移位运算要加括号，加减法比移位优先级高
+            mid = L + ((R-L) >> 1)
+            if arr1[mid] == ele:
+                found = True
+                break
+            elif ele < arr1[mid]:
+                R = mid-1
+            else:
+                L = mid+1
+        if not found:
+            arr.append(ele)
+    return arr
+
+
 def method3(arr1, arr2):
     """
     先排序，再外排    O(MlogM)+ O(M+N)
@@ -54,9 +71,10 @@ def method3(arr1, arr2):
     arr2.sort()
     p1 = 0
     p2 = 0
+    arr = []
     while (p1 < len(arr1) and p2 < len(arr2)):
         if (arr2[p2] < arr1[p1]):
-            print(arr2[p2])
+            arr.append(arr2[p2])
             p2 += 1
         elif (arr2[p2] == arr1[p1]):
             p2 += 1
@@ -64,18 +82,48 @@ def method3(arr1, arr2):
             p1 += 1
     # 最后不管是哪个指针越界，直接打印p2后面元素即可
     # 因为如果p2越界，下面语句不会打印
-    for ele in arr2[p2:]:
-        print(ele)
+    arr += arr2[p2:]
+    return arr
 
 
+# Python对数器
+def comparator(arr):
+    arr.sort()
+
+
+def generateRandomArray(maxSize, maxValue):
+    import random
+    random_list = []
+    for i in range(int((maxSize+1)*random.random())):
+        random_list.append(int((maxValue+1)*random.random())-int(maxValue*random.random()))
+    return random_list
+
+def copyArray(arr):
+    if not arr:
+        return
+    res = []
+    for i in arr:
+        res.append(i)
+    return res
 
 if __name__ == '__main__':
-    a = [1,2,3,4,5,20,30,40,100]
-    b=[-1,2,63,4,-7,100,45,1,40]
-    method3(a, b)
-    print("="*50)
-    method1(a, b)
-    print("="*50)
-    method2(a, b)
+    testTime = 50
+    maxSize = 100
+    maxValue = 100
+    succeed = True
+    for i in range(0, testTime):
+        arr1 = generateRandomArray(maxSize, maxValue)
+        arr2 = generateRandomArray(maxSize, maxValue)
+        arr1.sort()
 
+        res1 = method1(arr1, arr2)
+        res2 = method2(arr1, arr2)
+        res1.sort()
+        res2.sort()
 
+        if (res1 != res2):
+            succeed = False
+            print(res1)
+            print(res2)
+            break
+    print("Nice!" if succeed else "Fucking fucked")
