@@ -1,0 +1,91 @@
+#coding:utf-8
+'''
+@Time: 2019/10/18 20:00
+@author: Tokyo
+@file: code_15_getMinStack.py
+@desc:实现一个特殊的栈，在实现栈的基本功能的基础上，
+再实现返回栈中最小元素的操作
+要求：
+1.pop, push, getMin操作的时间复杂度都是O(1)
+2.设计的栈类型可以使用现成的栈结构
+'''
+
+'''
+
+'''
+
+class Stack(object):
+
+    def __init__(self):
+        self.__stack = []
+
+    def push(self, num):
+        """
+        入栈
+        :param num:
+        """
+        self.__stack.append(num)
+
+    def pop(self):
+        """
+        出栈
+        """
+        self.__stack.pop()
+    def peek(self):
+        if len(self.__stack) > 0:
+            return self.__stack[-1]
+        else:
+            return None
+    def is_empty(self):
+        return self.__stack == []
+    def size(self):
+        return len(self.__stack)
+
+class MinStack(object):
+    def __init__(self):
+        self.__stack = Stack()
+        self.__minstack = Stack()
+
+    def push(self, num):
+        """
+        入栈
+        dataStack 和minStack一起入栈，num和minStack栈顶元素比较，
+        小于栈顶则入栈num,否则入栈原栈顶元素
+        :param num:
+        """
+        self.__stack.push(num)
+        if self.__minstack.is_empty():
+            self.__minstack.push(num)
+        elif num < self.__minstack.peek():
+            self.__minstack.push(num)
+        else:
+            self.__minstack.push(self.__minstack.peek())
+
+    def pop(self):
+        if self.__stack.is_empty():
+            raise Exception("the stack is empty")
+        self.__stack.pop()
+        self.__minstack.pop()
+
+
+    def get_min(self):
+        if self.__stack.is_empty():
+            raise Exception("the stack is empty")
+        return self.__minstack.peek()
+
+if __name__ == '__main__':
+    a = MinStack()
+    a.push(-2)
+    a.push(-6)
+    a.push(4)
+    a.push(9)
+    a.push(0)
+    a.pop()
+    a.pop()
+    a.pop()
+    a.pop()
+    print(a.get_min())
+
+
+
+    print(a)
