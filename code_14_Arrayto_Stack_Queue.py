@@ -37,7 +37,6 @@ class Stack(object):
         self.index += 1
 
 
-
 class Queue(object):
 
     def __init__(self, initsize):
@@ -73,20 +72,13 @@ class Queue(object):
             raise Exception("the queue is empty")
         return self.__queue[self.start]
 
+
+
+
 if __name__ == '__main__':
-    b=Queue(5)
-    b.push(2)
-    b.push(1)
-    b.push(4)
-    b.push(6)
-    b.push(9)
-    print(b.start)
-    print(b.end)
-    print(b.size)
-    print(b.peek())
-    print("===============")
-    b.poll()
-    b.poll()
+    a = Queue(5)
+
+
 
 
 
