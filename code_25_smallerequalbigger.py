@@ -2,7 +2,7 @@
 '''
 @Time: 2019/10/22 19:53
 @author: Tokyo
-@file: smallerequalbigger.py
+@file: code_25_smallerequalbigger.py
 @desc:
 将单向链表按某值划分成左边小，中间相等，右边大的形式
 给定一个单链表的头节点head，节点的值类型是整型，再给定一个整
