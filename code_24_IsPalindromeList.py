@@ -121,6 +121,40 @@ def IsPalindromeList3(head):
     return res
 
 
+def huiwen(head):
+    if head is None:
+        return True
+
+    fast, slow = head, head
+
+    while fast.next != None and fast.next.next != None:
+        fast = fast.next.next
+        slow = slow.next
+
+    pre, next = None, None
+    cur = slow
+    while cur != None:
+        next = cur.next
+        cur.next = pre
+        pre = cur
+        cur = next
+    head1 = pre
+    cur = head
+    res = True
+    while pre != None and cur != None:
+        if pre.ele != cur.ele:
+            res = False
+            break
+        pre = pre.next
+        cur = cur.next
+
+    pre = None
+    while head1 != None:
+        next = head1.next
+        head1.next = pre
+        pre = head1
+        head1 = next
+    return res
 
 
 
@@ -137,6 +171,7 @@ def printLinkedlist(head):
 if __name__ == '__main__':
     a = Node(None)
     printLinkedlist(a)
+    print(huiwen(a))
     print(IsPalindromeList1(a))
     print(IsPalindromeList2(a))
     print(IsPalindromeList3(a))
@@ -144,7 +179,9 @@ if __name__ == '__main__':
     b = Node(1)
     b.next = Node(2)
     printLinkedlist(b)
-    print(IsPalindromeList1(b))
+    print(huiwen(b))
+    printLinkedlist(b)
+    print("bbbbbbb", IsPalindromeList1(b))
     print(IsPalindromeList2(b))
     print(IsPalindromeList3(b))
     print("=" * 50)
@@ -152,6 +189,7 @@ if __name__ == '__main__':
     c.next = Node(5)
     c.next.next = Node(1)
     printLinkedlist(c)
+    print(huiwen(c))
     print(IsPalindromeList1(c))
     print(IsPalindromeList2(c))
     print(IsPalindromeList3(c))
@@ -161,6 +199,7 @@ if __name__ == '__main__':
     d.next.next = Node(5)
     d.next.next.next = Node(2)
     printLinkedlist(d)
+    print(huiwen(d))
     print(IsPalindromeList1(d))
     print(IsPalindromeList2(d))
     print(IsPalindromeList3(d))

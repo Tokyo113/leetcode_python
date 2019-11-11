@@ -21,6 +21,8 @@ def reverseLinkedlist(head):
         head = next
     return pre
 
+
+
 class DoubleNode(object):
     def __init__(self, num):
         self.ele = num
@@ -39,6 +41,7 @@ def reverseDoubleList(head):
     return pre
 
 
+
 def printLinkedlist(head):
     cur = head
     while (cur != None):
@@ -51,6 +54,11 @@ if __name__ == '__main__':
     a.next.next = DoubleNode(-9)
     a.next.next.next = DoubleNode(8)
 
+    head = Node(1)
+    head.next = Node(9)
+    head.next.next = Node(5)
+    head.next.next.next = Node(2)
     printLinkedlist(a)
     b = reverseDoubleList(a)
     printLinkedlist(b)
+

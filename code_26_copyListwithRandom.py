@@ -54,7 +54,7 @@ def copyListwithRand2(head):
     while cur != None:
         next = cur.next.next
         copycur = cur.next
-        copycur.rand = cur.rand
+        copycur.rand = cur.rand.next if cur.rand != None else None
         cur = next
     # split
     cur = head
@@ -83,6 +83,86 @@ def printRandLinkedlist(head):
         cur = cur.next
     print("")
 
+
+
+def fuzhi(head):
+    if head is None:
+        return None
+    cur = head
+    head1 = head
+    while head != None:
+        next = head.next
+        node = Node(head.ele)
+        head.next = node
+        node.next = next
+        head = next
+
+    while cur != None:
+        next = cur.next.next
+        copynode = cur.next
+        copynode.rand = cur.rand.next if cur.rand != None else None
+        cur = next
+
+    new_head = head1.next
+    while head1 != None:
+        next = head1.next.next
+        copynode = head1.next
+        head1.next = next
+        copynode.next = next.next if next != None else None
+        head1 = next
+    return new_head
+
+
+
+
+'''
+"""
+# Definition for a Node.
+class Node:
+    def __init__(self, val, next, random):
+        self.val = val
+        self.next = next
+        self.random = random
+"""
+class Solution:
+    def copyRandomList(self, head):
+        if head is None:
+            return None
+        cur = head
+        
+        while cur != None:
+            next1 = cur.next
+            cur.next = Node(cur.val, None, None)
+            cur.next.next = next1
+            cur = next1
+        
+        
+        cur = head
+        while cur != None:
+            next1 = cur.next.next
+            copynode = cur.next
+            copynode.random = cur.random.next if cur.random != None else None
+            cur = next1
+        
+        new_head = head.next
+        cur = head
+        while cur != None:
+            next1 = cur.next.next
+            cur.next = next1
+            copynode = cur.next
+            copynode.next = next1.next if next1 != None else None
+            cur = next1
+        
+        return new_head
+
+'''
+
+
+
+
+
+
+
 if __name__ == '__main__':
     head = Node(1)
     head.next = Node(2)
@@ -103,3 +183,7 @@ if __name__ == '__main__':
     print("="*50)
     head2 = copyListwithRand2(head)
     printRandLinkedlist(head2)
+    print("=================")
+    head3 = fuzhi(head)
+    printRandLinkedlist(head3)
+    head33 = aaa(head)

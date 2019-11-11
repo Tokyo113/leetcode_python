@@ -24,6 +24,10 @@ def printCommonPart(node1, node2):
             print(cur1.ele, end=" ")
             cur1 = cur1.next
             cur2 = cur2.next
+    print("")
+
+
+
 
 
 if __name__ == '__main__':
@@ -35,3 +39,4 @@ if __name__ == '__main__':
     b.next.next = Node(5)
     b.next.next.next = Node(8)
     printCommonPart(a, b)
+    printgongong(a, b)

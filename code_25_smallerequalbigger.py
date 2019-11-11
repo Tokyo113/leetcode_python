@@ -14,6 +14,8 @@
 【要求】调整后所有大于pivot的节点之间的相对顺序和调整前一样
 【要求】时间复杂度请达到O(N)，额外空间复杂度请达到O(1)。
 
+
+
 '''
 
 class Node(object):
@@ -24,7 +26,7 @@ class Node(object):
 
 def smallerequalbigger1(head, num):
     """
-    不考虑空间复杂度，直接在数组中进行partition
+    不考虑空间复杂度，直接在数组中进行partition,但是是不稳定的
     :param head:
     :param num:
     """
@@ -103,7 +105,7 @@ def smallerequalbigger2(head, num):
     if sT != None:
         sT.next = eH
         eT = eT if eT != None else sT
-    # connect all
+    # connect all, eT 不为空意味着小于区或者等于区必然有一个不为空，包含了上面的情况
     if eT != None:
         eT.next = bH
 
@@ -111,6 +113,59 @@ def smallerequalbigger2(head, num):
         return sH
     else:
         return eH if eH != None else bH
+
+
+
+
+def fenfenfen(head, num):
+    if head is None:
+        return None
+    sH,sT = None, None
+    eH, eT = None, None
+    bH, bT = None, None
+
+    while head != None:
+        next = head.next
+        head.next = None
+        if head.ele < num:
+            if sH is None:
+                sH = head
+                sT = head
+            else:
+                sT.next = head
+                sT = head
+        elif head.ele == num:
+            if eH is None:
+                eH = head
+                eT = head
+            else:
+                eT.next = head
+                eT = head
+        else:
+            if bH is None:
+                bH = head
+                bT = head
+            else:
+                bT.next = head
+                bT = head
+        head = next
+
+
+    # join
+    if sT !=None:
+        if eH != None:
+            sT.next = eH
+        else:
+            eT = sT
+    if eT != None:
+        eT.next = bH
+
+
+    if sT != None:
+        return sH
+    else:
+        return eH if eH != None else bH
+
 
 
 
@@ -132,7 +187,7 @@ if __name__ == '__main__':
     head1.next.next.next.next.next.next = Node(5)
     printLinkedlist(head1)
     # head_1 = smallerequalbigger1(head1, 5)
-    head_2 = smallerequalbigger2(head1, 5)
+    head_2 = fenfenfen(head1, 6)
     # printLinkedlist(head_1)
     printLinkedlist(head_2)
 
