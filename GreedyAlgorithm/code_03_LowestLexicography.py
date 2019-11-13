@@ -43,7 +43,18 @@ def baoli(strs):
     str_sort.sort()
     return str_sort[0]
 
+'''
+全排列的思路：
+[1,2,3,4,5]
+外循环：
+    第一个位置为1+剩余部分的全排列
+    第一个位置为2+剩余部分的全排列
+    。。。
+    第一个位置为5+剩余部分的全排列
+全排列函数返回一个大列表[[2,3,4,5], [2,3,5,4], [2,4,3,5], ...]
+然后1与其中的每个小列表拼接就返回最后的结果
 
+'''
 def perm(strs):
     if(len(strs)<=1):
         return [strs]
@@ -65,6 +76,26 @@ def method1(strs):
     return str[0]
 
 
+def quanpailie(strs):
+    # base case
+    if len(strs) == 1:
+        return [strs]
+    res = []
+    for i in range(len(strs)):
+        others = strs[0:i] + strs[i+1:]
+        p = quanpailie(others)
+        for x in p:
+            res.append(strs[i:i+1]+x)
+    return res
+
+
+
+
+
+
+
+
+
 
 if __name__ == '__main__':
 
@@ -75,3 +106,7 @@ if __name__ == '__main__':
     print(lowestString(strs2))
     print(baoli(strs1))
     print(method1(strs1))
+
+    print(len(quanpailie(strs1)))
+
+

@@ -70,15 +70,13 @@ if __name__ == '__main__':
     node4 = Node(4)
 
 
-    que = queue.PriorityQueue()
-    que.put(9)
-    que.put(2)
-    que.put(4)
-    que.put(7)
-    que.put(5)
+    edge1 = Edge(1, node1, node3)
+    edge2 = Edge(2, node3, node2)
+    edge3 = Edge(7, node2, node1)
+    edd = [edge1, edge2, edge3]
+    qq = queue.PriorityQueue()
 
-    que.put(3)
-    print(que.get())
-    print(que.get())
+    for i in edd:
+        qq.put(i)
 
 
