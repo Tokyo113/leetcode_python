@@ -29,21 +29,53 @@ class MedianHolder(object):
     def getMedian(self):
         maxHeapSize = len(self.maxHeap)
         minHeapSize = len(self.minHeap)
-        maxHeapHead = -self.maxHeap[0]
-        minHeapHead = self.minHeap[0]
+
         if maxHeapSize + minHeapSize == 0:
             return None
-        if (minHeapSize + minHeapSize) % 2 == 0:
-            return (maxHeapHead+minHeapHead)/2
-        return maxHeapHead if maxHeapSize>minHeapSize else minHeapHead
+
+        # maxHeapHead = -self.maxHeap[0]
+        # minHeapHead = self.minHeap[0]
+        if (minHeapSize + maxHeapSize) % 2 == 0:
+            return (-self.maxHeap[0]+self.minHeap[0])/2
+        else:
+            return -self.maxHeap[0] if maxHeapSize>minHeapSize else self.minHeap[0]
 
 
+def getMedianofArray(arr):
+    if arr == []:
+        return None
 
+    arr.sort()
+    mid = int((len(arr)-1) / 2)
+    if len(arr) % 2 == 0:
+        return (arr[mid] + arr[mid+1])/2
+    else:
+        return arr[mid]
+
+
+def generateRandomArray(maxSize, maxValue):
+    import random
+    random_list = []
+    for i in range(int((maxSize+1)*random.random())):
+        random_list.append(int((maxValue+1)*random.random())-int(maxValue*random.random()))
+    return random_list
 if __name__ == '__main__':
-    a = [1,4,7,-5,2,-10, 2,5,6,-1,9]
-    s = MedianHolder()
-    for i in range(len(a)):
-        s.addNumber(a[i])
-    b = sorted(a)
-    print(s.getMedian())
-    print(b)
+    testTime = 5000
+    maxSize = 100
+    maxValue = 100
+    err = False
+    for i in range(0, testTime):
+        arr1 = generateRandomArray(maxSize, maxValue)
+        medianHolder = MedianHolder()
+        for i in range(len(arr1)):
+            medianHolder.addNumber(arr1[i])
+
+        if medianHolder.getMedian() != getMedianofArray(arr1):
+            err = True
+            print(arr1)
+            print(len(arr1))
+            print(medianHolder.getMedian())
+            print("Answer:", getMedianofArray(arr1))
+            break
+
+    print("Nice!" if not err else "Fucking fucked")
