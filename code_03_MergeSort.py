@@ -72,6 +72,9 @@ def mergeSort(arr):
 
 
 
+
+
+
 # Python对数器
 def comparator(arr):
     arr.sort()
@@ -101,7 +104,7 @@ if __name__ == '__main__':
         arr1 = generateRandomArray(maxSize, maxValue)
         arr2 = arr1.copy()
 
-        mergeSort(arr1)
+        mergeSort2(arr1)
         comparator(arr2)
 
         if (arr1 != arr2):

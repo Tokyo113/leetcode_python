@@ -56,10 +56,39 @@ def method2(arr):
     return arr
 
 
+def method3(arr):
+    if len(arr) <= 1:
+        return arr, []
+
+    mid = int(len(arr) >> 1)
+    arr1, res1 = method3(arr[:mid])
+    arr2, res2 = method3(arr[mid:])
+    res = res1 + res2
+    new = []
+    p1, p2 = 0, 0
+
+    while p1 < len(arr1) and p2 < len(arr2):
+        if arr1[p1] <= arr2[p2]:
+            new.append(arr1[p1])
+            p1 += 1
+        else:
+            new.append(arr2[p2])
+            for i in arr1[p1:]:
+                print(i, arr2[p2])
+                res.append([i, arr2[p2]])
+            p2 += 1
+
+    new += arr1[p1:]
+    new += arr2[p2:]
+
+    for i in range(len(new)):
+        arr[i] = new[i]
+    return arr, res
 
 
 if __name__ == '__main__':
     a = [2,3,8,6,1,7,4,12]
     method1(a)
     print("*"*50)
-    print(method2(a))
+    # print(method2(a))
+    print(method3(a)[1])

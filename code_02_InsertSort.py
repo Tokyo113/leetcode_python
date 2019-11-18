@@ -33,6 +33,10 @@ def insertSort(arr):
 
 
 
+
+
+
+
 # Python对数器
 def comparator(arr):
     arr.sort()
@@ -62,7 +66,7 @@ if __name__ == '__main__':
         arr1 = generateRandomArray(maxSize, maxValue)
         arr2 = arr1.copy()
 
-        insertSort(arr1)
+        insert(arr1)
         comparator(arr2)
 
         if (arr1 != arr2):

@@ -33,12 +33,16 @@ def printAllPermutation(strs):
 
 
 
+
+
+
 if __name__ == '__main__':
     a = 'hello'
     c = 'abcde'
     b = printAllPermutation(a)
     print(b)
     print(len(printAllPermutation(c)))
+    print(perm(a))
 
 
 

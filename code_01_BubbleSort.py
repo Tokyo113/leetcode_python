@@ -32,37 +32,7 @@ def selectionSort(arr):
         arr[i], arr[min_index] = arr[min_index], arr[i]
 
 
-def heapSort(arr):
-    if len(arr) <= 1:
-        return
 
-    for i in range(len(arr)):
-        heapInsert(arr, i)
-
-    heapsize = len(arr)
-    while (heapsize > 1):
-        arr[heapsize-1], arr[0] = arr[0], arr[heapsize-1]
-        heapsize -= 1
-        heapify(arr, 0, heapsize)
-
-
-def heapInsert(arr, i):
-    while(arr[i] > arr[(i-1)>>1] and ((i-1) >> 1) >= 0 ):
-        arr[i], arr[(i-1) >> 1] = arr[(i-1) >> 1], arr[i]
-        i = (i-1)>> 1
-
-
-def heapify(arr, index, size):
-    left = 2*index + 1
-    while(left < size):
-        largest = left + 1 if arr[left+1] > arr[left] and left+1 < size else left
-        largest = index if arr[index] > arr[largest] else largest
-        if largest == index:
-            break
-        else:
-            arr[largest], arr[index] = arr[index], arr[largest]
-            index = largest
-            left = 2*index+1
 
 # Python对数器
 def comparator(arr):
@@ -93,7 +63,7 @@ if __name__ == '__main__':
         arr1 = generateRandomArray(maxSize, maxValue)
         arr2 = arr1.copy()
 
-        heapSort(arr1)
+        select(arr1)
         comparator(arr2)
 
         if (arr1 != arr2):

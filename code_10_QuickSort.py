@@ -50,6 +50,8 @@ def partition(arr, L, R):
 
 
 
+
+
 # Python对数器
 def comparator(arr):
     arr.sort()
@@ -79,7 +81,7 @@ if __name__ == '__main__':
         arr1 = generateRandomArray(maxSize, maxValue)
         arr2 = arr1.copy()
 
-        quickSort(arr1, 0, len(arr1)-1)
+        kkk(arr1, 0, len(arr1)-1)
         comparator(arr2)
 
         if (arr1 != arr2):

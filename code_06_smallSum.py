@@ -60,30 +60,11 @@ def merge_method(arr):
     return list, res
 
 
-def smallSum(arr):
-     if len(arr) <= 1:
-         return arr, 0
 
-     mid = len(arr) >> 1
-     arr_l, res_l = smallSum(arr[:mid])
-     arr_r, res_r = smallSum(arr[mid:])
-     res = res_l + res_r
-     p1, p2 = 0, 0
-     arr_new = []
-     while (p1 < len(arr_l) and p2 < len(arr_r)):
-         if arr_l[p1] < arr_r[p2]:
-             res += arr_l[p1] * (len(arr_r) - p2)
-             arr_new.append(arr_l[p1])
-             p1 += 1
-         else:
-             arr_new.append(arr_r[p2])
-             p2 += 1
-     arr_new += arr_l[p1:]
-     arr_new += arr_r[p2:]
 
-     for i in range(len(arr_new)):
-         arr[i] = arr_new[i]
-     return arr, res
+
+
+
 
 
 

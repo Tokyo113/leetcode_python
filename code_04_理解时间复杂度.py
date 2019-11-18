@@ -86,6 +86,7 @@ def method3(arr1, arr2):
     return arr
 
 
+
 # Python对数器
 def comparator(arr):
     arr.sort()
@@ -117,7 +118,7 @@ if __name__ == '__main__':
         arr1.sort()
 
         res1 = method1(arr1, arr2)
-        res2 = method2(arr1, arr2)
+        res2 = kbb(arr1, arr2)
         res1.sort()
         res2.sort()
 

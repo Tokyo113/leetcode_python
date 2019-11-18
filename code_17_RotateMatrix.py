@@ -45,6 +45,10 @@ def printedge(arr, lr, lc, rr, rc):
             print(arr[curR][curC], end=" ")
             curR -= 1
 
+
+
+
+
 if __name__ == '__main__':
     a = [[1,2,3,4], [5,6,7,8], [9,10,11,12]]
     b = [[1,2,3,4,5]]
@@ -52,3 +56,6 @@ if __name__ == '__main__':
     rotateMatrix(a)
     rotateMatrix(b)
     rotateMatrix(c)
+    method(a)
+    method(b)
+    method(c)

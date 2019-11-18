@@ -50,9 +50,17 @@ def method2(arr, num):
 
 
 
+
+
+
+
+
+
+
 if __name__ == '__main__':
     a = [4,7,5,3,1,8,45,25,66,78,100]
-    num = 20
+    num = 5
     # method1(a, num)
-    method2(a, num)
+    # method2(a, num)
+    ppp(a, num)
     print(a)

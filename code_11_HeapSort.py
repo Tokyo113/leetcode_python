@@ -76,6 +76,17 @@ def Heapify(arr, i, size):
         arr[i], arr[largest] = arr[largest], arr[i]
         i = largest
         left = 2*i+1
+
+
+
+
+
+
+
+
+
+
+
 # Python对数器
 def comparator(arr):
     arr.sort()
@@ -105,11 +116,12 @@ if __name__ == '__main__':
         arr1 = generateRandomArray(maxSize, maxValue)
         arr2 = arr1.copy()
 
-        HeapSort(arr1)
+        heappp(arr1)
         comparator(arr2)
 
         if (arr1 != arr2):
             succeed = False
+            print(arr1)
             break
     print("Nice!" if succeed else "Fucking fucked")
     # a = [6,-4,-8,4,9, 3, 5]
