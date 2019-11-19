@@ -36,16 +36,47 @@ def printMatrix(arr):
         print("")
 
 
+
+
+def kkk(arr):
+    if len(arr) == 0:
+        return []
+
+    lr,lc = 0, 0
+    rr,rc = len(arr)-1, len(arr[0])-1
+
+    while lr <= rr and lc <= rc:
+        rrr(arr,lr,lc,rr,rc)
+        lr += 1
+        lc += 1
+        rr -= 1
+        rc -=1
+
+def rrr(arr,lr,lc,rr,rc):
+
+    for i in range(0,rc-lc):
+        temp = arr[lr][lc+i]
+        arr[lr][lc+i] = arr[rr-i][lc]
+        arr[rr-i][lc] = arr[rr][rc-i]
+        arr[rr][rc-i] = arr[lr+i][rc]
+        arr[lr+i][rc] = temp
+
+
 if __name__ == '__main__':
     a = [[1, 2, 3, 4], [5, 6, 7, 8], [9, 10, 11, 12], [13,14,15,16]]
 
     printMatrix(a)
     print("=================")
     rotateSquare(a)
+
     printMatrix(a)
 
     b = [[1, 2], [3,4]]
     rotateSquare(b)
     printMatrix(b)
+
+    c = [[2,29,20,26,16,28],[12,27,9,25,13,21],[32,33,32,2,28,14],[13,14,32,27,22,26],[33,1,20,7,21,7],[4,24,1,6,32,34]]
+    kkk(c)
+    print(c)
 
 
