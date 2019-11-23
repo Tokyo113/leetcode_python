@@ -28,6 +28,7 @@ class Pool(object):
             self.size += 1
 
     def delete(self, key):
+
         if len(self.keyIndexMap) == 0:
             return None
         removeIndex = self.keyIndexMap.get(key)
@@ -36,6 +37,8 @@ class Pool(object):
         self.keyIndexMap[lastKey] = removeIndex
         self.indexKeyMap[removeIndex] = lastKey
         self.keyIndexMap.pop(key)
+        # index也要去掉，不然不是等概率
+        self.indexKeyMap.pop(lastIndex)
         self.size -= 1
 
     def getRandom(self):
@@ -45,15 +48,25 @@ class Pool(object):
         return self.indexKeyMap.get(randIndex)
 
 
+
+
+
 if __name__ == '__main__':
     pool = Pool()
     pool.insert("zuo")
     pool.insert("cheng")
     pool.insert("yun")
     pool.delete("zuo")
-    print(pool.getRandom())
-    print(pool.getRandom())
-    print(pool.getRandom())
-    print(pool.getRandom())
-    print(pool.getRandom())
-    print(pool.getRandom())
+    # print(pool.getRandom())
+    # print(pool.getRandom())
+    # print(pool.getRandom())
+    # print(pool.getRandom())
+    # print(pool.getRandom())
+    # print(pool.getRandom())
+
+
+    print(pool.indexKeyMap)
+
+
+
+
