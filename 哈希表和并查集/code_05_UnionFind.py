@@ -58,12 +58,51 @@ class UnionFindSet(object):
             self.sizeMap.pop(small)
 
 
+class bingchaji(object):
+    def __init__(self, lists):
+        self.elementMap = {}
+        self.fatherMap = {}
+        self.sizeMap = {}
 
-def findCircleNum( M):
+        for i in lists[0]:
+            element = Element(i)
+            self.elementMap[i] = element
+            self.fatherMap[element] = element
+            self.sizeMap[element] = 1
+
+
+    def findHead(self, element):
+        path = []
+        while element != self.fatherMap.get(element):
+            path.append(element)
+            element = self.fatherMap.get(element)
+
+        while path != []:
+            self.fatherMap[path.pop()] = element
+
+        return element
+
+    def isSameSet(self, a,b):
+        if self.elementMap.get(a) != None and self.elementMap.get(b) != None:
+            return self.findHead(self.elementMap.get(a)) == self.findHead(self.elementMap.get(b))
+        return False
+
+    def union(self, a, b):
+        if self.elementMap.get(a) !=None and self.elementMap.get(b) != None:
+            aF = self.findHead(self.elementMap.get(a))
+            bF = self.findHead(self.elementMap.get(b))
+            big = aF if self.sizeMap.get(aF) > self.sizeMap.get(bF) else bF
+            small = bF if big == aF else aF
+
+            self.fatherMap[small] = big
+
+            self.sizeMap[big] = self.sizeMap.get(big) + self.sizeMap.get(small)
+            self.sizeMap.pop(small)
+def findCircleNum(M):
     if M == []:
         return 0
 
-    a = UnionFindSet(M)
+    a = bingchaji(M)
 
     for i in range(len(M)):
         for j in range(len(M[0])):

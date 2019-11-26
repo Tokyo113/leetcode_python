@@ -48,7 +48,44 @@ class Pool(object):
         return self.indexKeyMap.get(randIndex)
 
 
+class pool2(object):
+    def __init__(self):
+        self.keyIndexMap = {}
+        self.indexKeyMap = {}
+        self.size = 0
 
+    def insert(self, key):
+        self.keyIndexMap.setdefault(key, [])
+        if self.keyIndexMap.get(key) == []:
+            notHave = True
+        else:
+            notHave = False
+        self.keyIndexMap[key].append(self.size)
+        self.indexKeyMap[self.size] = key
+        self.size += 1
+        return notHave
+
+    def delete(self, key):
+        if self.keyIndexMap.get(key) == []:
+            return False
+        deleteIndex = self.keyIndexMap.get(key)[0]
+        lastIndex = self.size-1
+        lastkey = self.indexKeyMap.get(lastIndex)
+
+        self.keyIndexMap[lastkey].pop()
+        self.keyIndexMap[lastkey].append(deleteIndex)
+        self.keyIndexMap[key].pop(0)
+        if self.keyIndexMap.get(key) == []:
+            self.keyIndexMap.pop(key)
+        self.indexKeyMap[deleteIndex] = lastkey
+        self.indexKeyMap.pop(lastIndex)
+        self.size -= 1
+        return True
+
+
+    def getRandom(self):
+        rand = int(random.random()*self.size)
+        return self.indexKeyMap.get(rand)
 
 
 if __name__ == '__main__':
@@ -63,9 +100,21 @@ if __name__ == '__main__':
     # print(pool.getRandom())
     # print(pool.getRandom())
     # print(pool.getRandom())
+    pool2 = pool2()
+    pool2.insert(1)
+    pool2.insert(2)
+    pool2.insert(3)
+    pool2.insert(1)
+    print(pool2.keyIndexMap)
+    print(pool2.indexKeyMap)
+    pool2.delete(1)
+    pool2.delete(1)
+    print(pool2.keyIndexMap)
+    print(pool2.indexKeyMap)
 
 
-    print(pool.indexKeyMap)
+
+
 
 
 

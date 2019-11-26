@@ -59,8 +59,23 @@ def getNextArray(m):
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 if __name__ == '__main__':
     a = 'sdfjhweofwkdfndvmnve'
-    b = 'dfndvmnve'
+    b = 'ofwkdfndv'
     index = KMP(a,b)
     print(index)
+    print(kkk(a,b))

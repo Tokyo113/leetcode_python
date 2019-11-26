@@ -44,4 +44,4 @@ if __name__ == '__main__':
     b = printAllSubsequence(a)
     print(b)
     print(quickAllSubsequence(a))
-    print(ppppp(a))
+
