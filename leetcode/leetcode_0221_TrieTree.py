@@ -77,7 +77,6 @@ class WordDictionary:
             return True if node.end != 0 else False
 
         if word[i] == '.':
-            has = False
             # 遍历所有的nexts，都没有或者都为空才返回False
             for j in range(26):
                 if node.nexts[j] != None:

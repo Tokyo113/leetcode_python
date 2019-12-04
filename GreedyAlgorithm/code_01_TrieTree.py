@@ -76,6 +76,67 @@ class Trie(object):
 
 
 
+class Node(object):
+    def __init__(self):
+        self.path = 0
+        self.end = 0
+        self.next = [None for i in range(26)]
+
+
+class qianzhuishu(object):
+    def __init__(self):
+        self.root = Node()
+
+    def insert(self, word):
+        if word is None:
+            return
+        node = self.root
+        for i in range(len(word)):
+            index = ord(word[i])-ord('a')
+            if node.next[index] == None:
+                node.next[index] = Node()
+            node = node.next[index]
+            node.path += 1
+        node.end += 1
+
+    def search(self, word):
+        if word is None:
+            return 0
+        node = self.root
+        for i in range(len(word)):
+            index = ord(word[i])-ord('a')
+            if node.next[index] == None:
+                return 0
+            node = node.next[index]
+        return node.end
+
+    def qianzhui(self, word):
+        if word is None:
+            return 0
+        node = self.root
+        for i in range(len(word)):
+            index = ord(word[i])-ord('a')
+            if node.next[index] == None:
+                return 0
+            node = node.next[index]
+        return node.path
+
+    def delete(self, word):
+        if self.search(word) == 0:
+            return
+
+        node = self.root
+        for i in range(len(word)):
+            index = ord(word[i])-ord('a')
+            node.next[index].path -= 1
+            if node.next[index].path == 0:
+                node.next[index] = None
+                return
+            node = node.next[index]
+        node.end -= 1
+
+
+
 
 '''
 前缀树拓展：leetcode211
@@ -147,7 +208,14 @@ if __name__ == '__main__':
     trie.insert("zuoad")
     trie.delete("zuoa")
     print(trie.search("zuoa"))
-    print(trie.findpre("zuo"))
+    print("========================")
+    tree = qianzhuishu()
+    tree.insert('abc')
+    tree.insert('abf')
+    tree.delete('abc')
+    print(tree.search('ab'))
+    print(tree.qianzhui('ab'))
+
 
 
 
