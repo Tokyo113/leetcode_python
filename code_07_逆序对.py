@@ -85,10 +85,42 @@ def method3(arr):
         arr[i] = new[i]
     return arr, res
 
+def mergee(arr):
+    if len(arr) <= 1:
+        return arr, 0
+
+    mid = len(arr) >> 1
+    left, numl = mergee(arr[:mid])
+    right, num2 = mergee(arr[mid:])
+
+    p1, p2 = 0, 0
+    new = []
+    res = 0
+    while p1 < len(left) and p2 < len(right):
+        if left[p1] <= right[p2]:
+            new.append(left[p1])
+            p1 += 1
+
+        else:
+
+            new.append(right[p2])
+            p2 += 1
+            res += len(left)-p1
+
+    new += left[p1:]
+    new += right[p2:]
+
+    for i in range(len(arr)):
+        arr[i] = new[i]
+
+    return arr, numl+num2+res
 
 if __name__ == '__main__':
     a = [2,3,8,6,1,7,4,12]
-    method1(a)
+    b = [1,2,3,4,5,6,7,0]
+    # method1(a)
     print("*"*50)
     # print(method2(a))
     print(method3(a)[1])
+    print(mergee(b)[1]%1000000007)
+

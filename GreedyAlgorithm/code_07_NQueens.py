@@ -58,8 +58,38 @@ def convert(record):
         li.append(strs)
     final.append(li)
 
+class Solution():
+    def nqueen(self,n):
+        if n < 1:
+            return 0
+
+        record = [0 for i in range(n)]
+        res = self.process(0, record, n)
+
+        return res
+
+
+    def process(self,i, record, n):
+        if i == n:
+            return 1
+        res = 0
+        for j in range(n):
+            if self.isvalid(i,record, j):
+                record[i] = j
+                res += self.process(i+1, record,n)
+        return res
+
+
+    def isvalid(self,i, record, j):
+        for k in range(i):
+            if record[k] == j or abs(record[k]-j) == abs(i-k):
+                return False
+        return True
+
 
 
 if __name__ == '__main__':
     print(nQueens(5))
     print(final)
+    a = Solution()
+    print(a.nqueen(8))

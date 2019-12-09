@@ -39,4 +39,3 @@ if __name__ == '__main__':
     b.next.next = Node(5)
     b.next.next.next = Node(8)
     printCommonPart(a, b)
-    printgongong(a, b)

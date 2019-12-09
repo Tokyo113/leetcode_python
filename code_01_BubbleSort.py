@@ -31,6 +31,43 @@ def selectionSort(arr):
                 min_index = j
         arr[i], arr[min_index] = arr[min_index], arr[i]
 
+import random
+def quicksort(arr, L, R):
+
+
+
+    if L < R:
+        rand = L + int(random.random() * (R - L + 1))
+        arr[R], arr[rand] = arr[rand], arr[R]
+
+        p= partition(arr, L, R)
+        quicksort(arr, L, p[0]-1)
+        quicksort(arr, p[1]+1, R)
+
+
+
+
+
+def partition(arr, L, R):
+
+    num = arr[R]
+    cur = L
+    less, more = L-1, R + 1
+    while cur < more:
+        if arr[cur] < num:
+            arr[cur], arr[less+1] = arr[less+1], arr[cur]
+            less += 1
+            cur += 1
+        elif arr[cur] == num:
+            cur += 1
+        else:
+            arr[cur], arr[more-1] = arr[more-1], arr[cur]
+            more -= 1
+
+    return less+1, more-1
+
+
+
 
 
 
@@ -63,10 +100,11 @@ if __name__ == '__main__':
         arr1 = generateRandomArray(maxSize, maxValue)
         arr2 = arr1.copy()
 
-        select(arr1)
+        quicksort(arr1, 0, len(arr1)-1)
         comparator(arr2)
 
         if (arr1 != arr2):
             succeed = False
+            print(arr1)
             break
     print("Nice!" if succeed else "Fucking fucked")
