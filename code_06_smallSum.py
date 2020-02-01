@@ -60,6 +60,33 @@ def merge_method(arr):
     return list, res
 
 
+def small_sum(arr):
+    if len(arr) < 2:
+        return arr, 0
+
+    mid = len(arr) >> 1
+    arr_l, s1 = small_sum(arr[:mid])
+    arr_r, s2 = small_sum(arr[mid:])
+
+    sum = s1 + s2
+    l, r  = 0, 0
+    arr_new = []
+    while l < len(arr_l) and r < len(arr_r):
+        if arr_l[l] < arr_r[r]:
+            arr_new.append(arr_l[l])
+            sum += arr_l[l]*(len(arr_r)-r)
+            l += 1
+        else:
+            arr_new.append(arr_r[r])
+            r += 1
+    arr_new += arr_l[l:]
+    arr_new += arr_r[r:]
+
+    for i in range(len(arr_new)):
+        arr[i] = arr_new[i]
+
+    return arr, sum
+
 
 
 
@@ -70,7 +97,7 @@ def merge_method(arr):
 
 
 if __name__ == '__main__':
-    a = [1,3,-4,2,5, 7,10,-12,55, 45,9,100]
+    a = [1,3,-4,2,5, 45,9,100]
     print(method1(a))
     print(merge_method(a)[1])
-    print(smallSum(a)[1])
+    print(small_sum(a))

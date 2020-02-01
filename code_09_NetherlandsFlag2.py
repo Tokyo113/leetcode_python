@@ -62,9 +62,32 @@ def netherlands_plus(arr, num, l, r):
             arr[cur], arr[more-1] = arr[more-1], arr[cur]
             more -= 1
 
+def partition(arr, num, l, r):
+    if l >= r:
+        return
+    small, big = l-1,r+1
+    i = l
+    while i < big:
+        if arr[i] < num:
+            arr[i], arr[small+1] = arr[small+1], arr[i]
+            small += 1
+            i += 1
+        elif arr[i] == num:
+            i += 1
+        else:
+            arr[i], arr[big-1] = arr[big-1], arr[i]
+            big -= 1
+
+
+
+
+
+
+
 
 if __name__ == '__main__':
     a = [5,7,3,-9,20,45,45,-78,2,4,6,4,-3]
-    num = 3
-    netherlands_plus(a, num, 2, 7)
+    num = -1
+    # netherlands_plus(a, num, 2, 7)
+    partition(a, num, 1,7)
     print(a)
