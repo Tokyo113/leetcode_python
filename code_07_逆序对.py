@@ -85,42 +85,40 @@ def method3(arr):
         arr[i] = new[i]
     return arr, res
 
-def mergee(arr):
-    if len(arr) <= 1:
-        return arr, 0
+def pairsinverse(arr):
+    if len(arr) < 2:
+        return arr, []
 
     mid = len(arr) >> 1
-    left, numl = mergee(arr[:mid])
-    right, num2 = mergee(arr[mid:])
-
-    p1, p2 = 0, 0
-    new = []
-    res = 0
-    while p1 < len(left) and p2 < len(right):
-        if left[p1] <= right[p2]:
-            new.append(left[p1])
-            p1 += 1
-
+    arr_l, re1 = pairsinverse(arr[:mid])
+    arr_r, re2 = pairsinverse(arr[mid:])
+    l, r = 0, 0
+    arr_new = []
+    re = re1 + re2
+    while l < len(arr_l) and r< len(arr_r):
+        if arr_l[l] <= arr_r[r]:
+            arr_new.append(arr_l[l])
+            l += 1
         else:
+            arr_new.append(arr_r[r])
+            for x in arr_l[l:]:
+                re.append((x, arr_r[r]))
+            r += 1
+    arr_new += arr_l[l:]
+    arr_new += arr_r[r:]
 
-            new.append(right[p2])
-            p2 += 1
-            res += len(left)-p1
+    for i in range(len(arr_new)):
+        arr[i] = arr_new[i]
 
-    new += left[p1:]
-    new += right[p2:]
-
-    for i in range(len(arr)):
-        arr[i] = new[i]
-
-    return arr, numl+num2+res
+    return arr, re
 
 if __name__ == '__main__':
     a = [2,3,8,6,1,7,4,12]
     b = [1,2,3,4,5,6,7,0]
+    c = a.copy()
     # method1(a)
     print("*"*50)
     # print(method2(a))
-    print(method3(a)[1])
-    print(mergee(b)[1]%1000000007)
+    print(method3(c))
+    print(pairsinverse(a))
 

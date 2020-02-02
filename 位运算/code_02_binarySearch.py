@@ -22,8 +22,22 @@ def binarySearch(arr, num):
             R = mid - 1
     return arr[L] == num
 
+def erfenfa(arr, num):
+    if arr is None or len(arr) == 0:
+        return False
+    L, R = 0, len(arr)-1
 
+    while L < R:
+        mid = L + ((R-L)>>1)
+        if arr[mid] < num:
+            L = mid +1
+        elif arr[mid] == num:
+            return True
+        else:
+            R = mid-1
+    return arr[L] == num
 
 if __name__ == '__main__':
-    a = [1]
-    print(binarySearch(a, 0))
+    a = [1,3,5,9]
+    print(binarySearch(a, 4))
+    print(erfenfa(a,4))

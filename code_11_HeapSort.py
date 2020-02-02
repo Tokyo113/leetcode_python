@@ -87,6 +87,8 @@ def Heapify(arr, i, size):
 
 
 
+
+
 # Python对数器
 def comparator(arr):
     arr.sort()
@@ -116,7 +118,7 @@ if __name__ == '__main__':
         arr1 = generateRandomArray(maxSize, maxValue)
         arr2 = arr1.copy()
 
-        heappp(arr1)
+        heappsss(arr1)
         comparator(arr2)
 
         if (arr1 != arr2):

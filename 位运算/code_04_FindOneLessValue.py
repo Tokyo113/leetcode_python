@@ -38,9 +38,35 @@ def findLessValue(arr):
     return L
 
 
+def findsmall(arr):
+    if arr is None or len(arr) <= 1 :
+        return
+
+    if arr[0] < arr[1]:
+        return 0
+    elif arr[-1] < arr[-2]:
+        return len(arr)-1
+    else:
+        L, R = 1, len(arr)-2
+        while L < R:
+            mid = L + ((R-L) >> 1)
+            if arr[mid] < arr[mid+1] and arr[mid] < arr[mid-1]:
+                return mid
+            elif arr[mid] > arr[mid-1]:
+                R = mid - 1
+            elif arr[mid] > arr[mid+1]:
+                L = mid + 1
+        # 最终必然存在局部极小值，返回L=R时的情况
+        return R
+
+
+
 if __name__ == '__main__':
-    a = [5,2,4]
-    print(a[findLessValue(a)])
+    a = [1]
+    findsmall(a)
+    # print(a[findLessValue(a)])
+    # print(a[findsmall(a)])
     b = [6, 5, 3, 9, 1, 7, 8 ]
     print(b[findLessValue(b)])
+    print(b[findsmall(b)])
 

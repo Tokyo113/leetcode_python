@@ -23,7 +23,26 @@ def nearestIndex(arr, num):
 
     return index
 
+def findindex(arr, num):
+    if arr is None or arr == []:
+        return
+    L, R = 0, len(arr)-1
+    index = -1
+
+    while L <= R:
+        mid = L + ((R-L)>>1)
+        if arr[mid] >= num:
+            R = mid - 1
+            index = mid
+        else:
+            L = mid + 1
+
+    return index
+
+
+
 
 if __name__ == '__main__':
     a = [1,1,1,2,2,2,3]
     print(nearestIndex(a, 1))
+    print(findindex(a, 10))

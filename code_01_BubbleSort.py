@@ -62,58 +62,40 @@ def partition(arr, L, R):
 
     return less+1, more-1
 
-
-def mergesss(arr):
+def duipaixu(arr):
     if len(arr) < 2:
-        return arr
-
-    mid = len(arr) >> 1
-    arr_l = mergesss(arr[:mid])
-    arr_r = mergesss(arr[mid:])
-
-    arr_new = []
-    l, r = 0, 0
-    while l < len(arr_l) and r < len(arr_r):
-        if arr_l[l] <= arr_r[r]:
-            arr_new.append(arr_l[l])
-            l += 1
-        else:
-            arr_new.append(arr_r[r])
-            r += 1
-    arr_new += arr_l[l:]
-    arr_new += arr_r[r:]
-
-    for i in range(len(arr_new)):
-        arr[i] = arr_new[i]
-    return arr
-
-def quicksss(arr, L, R):
-    if L < R:
-        rand = L + int(random.random()*(R-L+1))
-        arr[rand], arr[R] = arr[R], arr[rand]
-        p = partition(arr, L, R)
-        quicksss(arr, L, p[0]-1)
-        quicksss(arr, p[1]+1, R)
-
-
-def partition(arr, L, R):
-    if L >= R:
         return
-    num = arr[R]
-    less, more = L-1, R+1
-    cur = L
-    while cur < more:
-        if arr[cur] < num:
-            arr[cur], arr[less+1] = arr[less+1], arr[cur]
-            cur += 1
-            less += 1
-        elif arr[cur] == num:
-            cur += 1
-        else:
-            arr[cur], arr[more-1] = arr[more-1], arr[cur]
-            more -= 1
 
-    return less+1, more-1
+    for i in range(len(arr)):
+        heapinsert(arr, i)
+
+    heapsize = len(arr)
+    while heapsize > 0:
+        arr[0], arr[heapsize-1] = arr[heapsize-1], arr[0]
+        heapsize -= 1
+        heapify(arr, 0, heapsize)
+
+def heapinsert(arr, i):
+    while arr[i] > arr[(i-1)>>1] and ((i-1)>>1) >=0:
+        arr[i], arr[(i-1)>>1] = arr[(i-1)>>1], arr[i]
+        i = (i-1)>>1
+
+def heapify(arr, index, size):
+    left = 2*index + 1
+    while left < size:
+        largest = left+1 if arr[left+1] > arr[left] and (left+1) < size else left
+        largest = index if arr[index] > arr[largest] else largest
+
+        if largest == index:
+            break
+        arr[largest], arr[index] = arr[index], arr[largest]
+        index = largest
+        left = 2*index +1
+
+    return
+
+
+
 
 
 
@@ -143,7 +125,7 @@ def copyArray(arr):
     return res
 
 if __name__ == '__main__':
-    testTime = 50
+    testTime = 509
     maxSize = 100
     maxValue = 100
     succeed = True
@@ -151,7 +133,7 @@ if __name__ == '__main__':
         arr1 = generateRandomArray(maxSize, maxValue)
         arr2 = arr1.copy()
 
-        quicksss(arr1, 0, len(arr1)-1)
+        duipaixu(arr1)
         comparator(arr2)
 
         if (arr1 != arr2):

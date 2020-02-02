@@ -94,10 +94,42 @@ def small_sum(arr):
 
 
 
+# Python对数器
+def comparator(arr):
+    arr.sort()
 
+
+def generateRandomArray(maxSize, maxValue):
+    import random
+    random_list = []
+    for i in range(int((maxSize+1)*random.random())):
+        random_list.append(int((maxValue+1)*random.random())-int(maxValue*random.random()))
+    return random_list
+
+def copyArray(arr):
+    if not arr:
+        return
+    res = []
+    for i in arr:
+        res.append(i)
+    return res
 
 if __name__ == '__main__':
-    a = [1,3,-4,2,5, 45,9,100]
-    print(method1(a))
-    print(merge_method(a)[1])
-    print(small_sum(a))
+    testTime = 50
+    maxSize = 2000
+    maxValue = 100
+    succeed = True
+    for i in range(0, testTime):
+        arr1 = generateRandomArray(maxSize, maxValue)
+        arr2 = arr1.copy()
+
+        ans = small_sum(arr1)[1]
+        com = method1(arr2)
+
+        if (ans != com):
+            succeed = False
+            print(arr1)
+            print('right ans is:', com)
+            print('your ans is:', ans)
+            break
+    print("Nice!" if succeed else "Fucking fucked")
