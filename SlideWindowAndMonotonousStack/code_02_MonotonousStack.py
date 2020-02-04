@@ -11,6 +11,10 @@ def getNearLessNoRepeat(arr):
     '''
     没有重复值的求解两边小于它的数的index
     注意单调栈中存放的是下标index
+    主要分为三个部分
+    1. 弹出不合规的元素
+    2.入栈
+    3.清算
     :param arr:
     :return:
     '''
@@ -18,20 +22,23 @@ def getNearLessNoRepeat(arr):
     stack = []
 
     for i in range(len(arr)):
+        # 1.弹出不合规的元素，并生成结果
         while (len(stack) != 0) and (arr[i] < arr[stack[-1]]):
             popIndex = stack.pop()
             leftIndex = stack[-1] if stack != [] else -1
             res[popIndex][0] = leftIndex
             res[popIndex][1] = i
-
+        # 入栈
         stack.append(i)
-
+    # 清算
     while stack != []:
         popIndex = stack.pop()
         leftIndex = stack[-1] if stack != [] else -1
         res[popIndex][0] = leftIndex
         res[popIndex][1] = -1
     return res
+
+
 
 def getNearLess(arr):
     '''
@@ -71,39 +78,24 @@ def getNearLess(arr):
 
 
 
-
-
-
-
-
-
-
-
 def baoli(arr):
     '''
-    暴力解法
+    暴力解法，O(N2)
     :param arr:
     :return:
     '''
     res = [[-1,-1] for i in range(len(arr))]
-    hasright = False
-    hasleft = False
-    for i in range(len(arr)):
-        for j in range(i+1, len(arr)):
-            if arr[j] < arr[i]:
-                hasright = True
-                res[i][1] = j
-                break
-        if hasright == False:
-            res[i][1] = -1
 
-        for k in range(i-1,-1,-1):
-            if arr[k] < arr[i]:
-                hasleft = True
-                res[i][0] = k
+    for i in range(len(arr)):
+        for pre in range(i-1,-1,-1):
+            if arr[pre] < arr[i]:
+                res[i][0] = pre
                 break
-        if hasleft == False:
-            res[i][0] = -1
+
+        for last in range(i+1,len(arr)):
+            if arr[last] < arr[i]:
+                res[i][1] = last
+                break
 
     return res
 
@@ -120,21 +112,27 @@ def generateRandomArray(maxSize, maxValue):
 
 
 if __name__ == '__main__':
-    testTime = 5000
-    maxSize = 100
-    maxValue = 100
-    succeed = True
-    for i in range(0, testTime):
-        arr1 = generateRandomArray(maxSize, maxValue)
+    # testTime = 5000
+    # maxSize = 100
+    # maxValue = 100
+    # succeed = True
+    # for i in range(0, testTime):
+    #     arr1 = generateRandomArray(maxSize, maxValue)
+    #
+    #
+    #     a = getNearLess(arr1)
+    #     b = baoli(arr1)
+    #
+    #     if (a != b):
+    #         succeed = False
+    #         print(arr1)
+    #         print('right ans', baoli(arr1))
+    #         print('your ans', getNearLess(arr1))
+    #         break
+    # print("Nice!" if succeed else "Fucking fucked")
+    a = [3,1,6,7,8,3,5,2]
+    print(getNearLessNoRepeat(a))
 
-
-        a = getNearLess(arr1)
-        b = baoli(arr1)
-
-        if (a != b):
-            succeed = False
-            break
-    print("Nice!" if succeed else "Fucking fucked")
 
 
 

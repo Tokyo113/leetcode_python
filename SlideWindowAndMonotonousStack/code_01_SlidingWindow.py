@@ -39,7 +39,7 @@ def getMinWindow(arr, w):
     :return:
     '''
     if arr is None or len(arr) < w or w < 1:
-        return
+        return []
 
     qmin = deque()
     res = []
@@ -57,11 +57,53 @@ def getMinWindow(arr, w):
     return res
 
 
+def slidewindow(arr, w):
+    if arr is None or len(arr) < w or w <= 0:
+        return []
+
+    res = []
+    qmin = deque()
+
+    for i in range(len(arr)):
+        while len(qmin) > 0 and arr[i] <= arr[qmin[-1]]:
+            qmin.pop()
+
+        qmin.append(i)
+
+        if i-w == qmin[0]:
+            qmin.popleft()
+
+        if i-w >= -1:
+            res.append(arr[qmin[0]])
+    return res
+
+def generateRandomArray(maxValue, maxSize):
+    import random
+    arr = []
+    for i in range(int((maxSize+1)*random.random())):
+        value = int((maxValue+1)*random.random()-(maxValue+1)*random.random())
+        arr.append(value)
+    return arr
+import random
 if __name__ == '__main__':
-    arr = [4,3,5,4,3,3,6,7,2,1]
-    w = 3
-    print(getMaxWindow(arr, w))
-    print(getMinWindow(arr, w))
+    maxValue = 100
+    maxSize = 20
+    testTime = 500
+    succeed = True
+    for i in range(testTime):
+        arr = generateRandomArray(maxValue, maxSize)
+        w = int(10*random.random())
+
+        a = getMinWindow(arr, w)
+        b = slidewindow(arr, w)
+
+        if a != b:
+            succeed = False
+            print(a)
+            print(b)
+            break
+    print("nice!" if succeed else "fucking fucked")
+
 
 
 

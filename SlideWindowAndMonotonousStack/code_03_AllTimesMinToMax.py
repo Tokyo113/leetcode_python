@@ -31,6 +31,7 @@ def findMaxA(arr):
     '''
     单调栈的方法，每个元素轮流当最小值
     区间就是单调栈给出的离他最近的两个比他小的index
+    对于含有重复元素也适用
     :param arr:
     :return:
     '''
@@ -40,6 +41,7 @@ def findMaxA(arr):
     maxA = 0
     stack = []
     size = len(arr)
+    # sums[m] 记录0~m项的和
     sums = [0 for i in range(size)]
     sums[0] = arr[0]
     for i in range(1,size):
@@ -60,6 +62,37 @@ def findMaxA(arr):
     return maxA
 
 
+def getMax(arr):
+    if arr is None or arr == []:
+        return 0
+
+    stack = []
+    maxA = 0
+
+    sums = [0 for i in range(len(arr))]
+    sums[0] = arr[0]
+    for m in range(1,len(arr)):
+        sums[m] = sums[m-1]+arr[m]
+    for i in range(len(arr)):
+        while stack != [] and arr[i] <= arr[stack[-1]]:
+            popindex = stack.pop()
+            sumA = sums[i-1]-sums[stack[-1]] if stack != [] else sums[i-1]
+            maxA = max(maxA,sumA*arr[popindex])
+
+        stack.append(i)
+
+    while stack != []:
+        popindex = stack.pop()
+        sumA = sums[len(arr)-1]-sums[stack[-1]] if stack != [] else sums[len(arr)-1]
+        maxA = max(maxA, sumA*arr[popindex])
+
+    return maxA
+
+
+
+
+
+
 
 
 
@@ -75,7 +108,7 @@ def generateRandomArray(maxSize, maxValue):
 
 
 if __name__ == '__main__':
-    testTime = 5000
+    testTime = 500
     maxSize = 100
     maxValue = 100
     succeed = True
@@ -84,7 +117,7 @@ if __name__ == '__main__':
 
 
         a = baoli(arr1)
-        b =findMaxA(arr1)
+        b =getMax(arr1)
 
         if (a != b):
             succeed = False
@@ -92,6 +125,7 @@ if __name__ == '__main__':
             print(a,b)
             break
     print("Nice!" if succeed else "Fucking fucked")
+
 
 
 

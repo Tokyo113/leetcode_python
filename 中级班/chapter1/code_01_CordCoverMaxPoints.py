@@ -56,7 +56,7 @@ def method2(arr, length):
     :param length:
     :return:
     '''
-    if arr is None or length <= 0:
+    if arr is None or length <= 0 or arr == []:
         return 0
     # 只要绳长>0，至少能覆盖1个点
     max_points = 1
@@ -76,8 +76,17 @@ def method2(arr, length):
 
 
 
+
+
+
+
+
+
+
+
 if __name__ == '__main__':
-    arr = [1,3,5,7,8,10,13]
-    l = 3
+    arr = []
+    l = 8
     print(method1(arr, l))
     print(method2(arr, l))
+    print(eee(arr,l))

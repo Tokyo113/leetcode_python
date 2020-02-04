@@ -17,6 +17,7 @@ def findOddTimes1(arr):
     return eor
 
 
+
 def findOddTimes2(arr):
     eor = 0
     for i in arr:
@@ -37,7 +38,9 @@ def findOddTimes2(arr):
 
 
 if __name__ == '__main__':
-    a = [1,2,3,2,1,2,4,4,3,2,3]
+    a = [1,2,3,2,1,2,4,4,3,2,5]
     print(findOddTimes1(a))
-    b = [4, 3, 4, 2, 2, 2, 4, 1, 1, 1, 3, 3, 1, 1, 1, 4, 2, 2]
+
+    b = [4, 3, 4, 2, 2, 1, 4, 1, 1, 1, 3, 3, 1, 1, 1, 4, 2, 2]
     print(findOddTimes2(b))
+    print(find2(b))
