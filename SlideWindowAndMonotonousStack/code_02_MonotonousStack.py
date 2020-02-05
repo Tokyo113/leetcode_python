@@ -100,6 +100,10 @@ def baoli(arr):
     return res
 
 
+
+
+
+
 def generateRandomArray(maxSize, maxValue):
     import random
     random_list = []
@@ -112,26 +116,25 @@ def generateRandomArray(maxSize, maxValue):
 
 
 if __name__ == '__main__':
-    # testTime = 5000
-    # maxSize = 100
-    # maxValue = 100
-    # succeed = True
-    # for i in range(0, testTime):
-    #     arr1 = generateRandomArray(maxSize, maxValue)
-    #
-    #
-    #     a = getNearLess(arr1)
-    #     b = baoli(arr1)
-    #
-    #     if (a != b):
-    #         succeed = False
-    #         print(arr1)
-    #         print('right ans', baoli(arr1))
-    #         print('your ans', getNearLess(arr1))
-    #         break
-    # print("Nice!" if succeed else "Fucking fucked")
-    a = [3,1,6,7,8,3,5,2]
-    print(getNearLessNoRepeat(a))
+    testTime = 5000
+    maxSize = 100
+    maxValue = 100
+    succeed = True
+    for i in range(0, testTime):
+        arr1 = generateRandomArray(maxSize, maxValue)
+
+
+        a = dandiaozhan(arr1)
+        b = baoli(arr1)
+
+        if (a != b):
+            succeed = False
+            print(arr1)
+            print('right ans', baoli(arr1))
+            print('your ans', getNearLess(arr1))
+            break
+    print("Nice!" if succeed else "Fucking fucked")
+
 
 
 
