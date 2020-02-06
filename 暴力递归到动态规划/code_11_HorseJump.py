@@ -12,6 +12,32 @@
 有多少种？
 '''
 
+
+
+def horseDP(x,y,k):
+    dp = [[[0 for i in range(k+1)]for i in range(10)]for i in range(9)]
+
+    for z in range(k + 1):
+        for row in range(9):
+            for col in range(10):
+
+                if z == 0:
+                    dp[row][col][z] = 1 if row==0 and col == 0 else 0
+                else:
+                    dp[row][col][z] = findValue(dp,row+2, col+1, z-1)+findValue(dp,row-2, col+1,z-1)+\
+                    findValue(dp,row+1,col+2,z-1)+findValue(dp,row-1,col+2,z-1)+\
+                    findValue(dp,row+2,col-1,z-1)+findValue(dp,row-2,col-1,z-1)+\
+                    findValue(dp,row+1,col-2, z-1)+findValue(dp,row-1,col-2,z-1)
+
+    return dp[x][y][k]
+
+
+
+def findValue(dp,row,col,z):
+    if row < 0 or row >8 or col < 0 or col >9:
+        return 0
+    return dp[row][col][z]
+
 def horseJump(x, y, step):
     return process(x, y, step)
 
@@ -54,5 +80,6 @@ if __name__ == '__main__':
     x = 7
     y = 7
     step = 10
-    print(horseJump(x,y,step))
+    # print(horseJump(x,y,step))
     print(horseJumpDP(x,y,step))
+    print(horseDP(x,y,step))

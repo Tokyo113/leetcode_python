@@ -24,7 +24,6 @@ N=5,M=2,K=3,P=3
 
 def robot1(N, E, K, S):
     return f1(N, E, K, S)
-
 def f1(N, E, rest, cur):
     '''
     暴力递归
@@ -65,6 +64,14 @@ def f2(N, E, rest, cur, dp):
     return dp[rest][cur]
 
 def robot3(N,E,K,S):
+    '''
+
+    :param N: N个位置
+    :param E: 最后要到达的位置
+    :param K: 给定步数
+    :param S: 当前位置
+    :return:
+    '''
     dp = [[0 for i in range(N+1)] for i in range(K+1)]
     dp[0][E] = 1
     for rest in range(1,K+1):
@@ -80,9 +87,36 @@ def robot3(N,E,K,S):
 
 
 
+def dp666(N,final, K, start):
+    dp = [[-1 for i in range(N+1)] for i in range(K+1)]
+
+    for i in range(1,N+1):
+        dp[0][i] = 1 if i == final else 0
+
+    for step in range(1,K+1):
+        for cur in range(1, N+1):
+            if cur == 1:
+                dp[step][cur] = dp[step-1][cur+1]
+            elif cur == N:
+                dp[step][cur] = dp[step-1][cur-1]
+            else:
+                dp[step][cur] = dp[step-1][cur-1]+dp[step-1][cur+1]
+
+    return dp[K][start]
+
+
+
+
+
+
+
 
 if __name__ == '__main__':
-    print(robot1(7,4,9,5))
-    print(robot2(7, 4, 9, 5))
-    print(robot3(7,4,9,5))
+    print(robot1(9,4,5,3))
+    print(robot2(9, 4, 5, 3))
+    print(robot3(9,4,5,3))
+    print(robot3(9,3,4,5))
+    print(dp666(9,4,5,3))
+
+
 

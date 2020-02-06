@@ -11,6 +11,40 @@
 将暴力递归改为动态规划
 '''
 
+def winner(arr):
+    if arr is None or arr == []:
+        return 0
+    return max(f1(arr, 0, len(arr)-1), g1(arr, 0, len(arr)-1))
+
+def f1(arr, L, R):
+    if L == R:
+        return arr[L]
+    return max(arr[L]+g1(arr, L+1, R), arr[R]+g1(arr, L, R-1))
+
+def g1(arr, L, R):
+    if L == R:
+        return 0
+    return min(f1(arr, L+1, R), f1(arr, L, R-1))
+
+
+def winnerdp(arr):
+    if arr is None or arr == []:
+        return 0
+    dpf = [[0 for i in range(len(arr))] for i in range(len(arr))]
+    dpg = [[0 for i in range(len(arr))] for i in range(len(arr))]
+    for i in range(len(arr)):
+        dpf[i][i] = arr[i]
+        dpg[i][i] = 0
+
+    for L in range(len(arr)-2, -1, -1):
+        for R in range(L+1, len(arr)):
+            dpf[L][R] = max(arr[L]+dpg[L+1][R], arr[R]+dpg[L][R-1])
+            dpg[L][R] = min(dpf[L+1][R], dpf[L][R-1])
+
+    return max(dpf[0][len(arr)-1], dpg[0][len(arr)-1])
+
+
+
 
 def playcards(arr):
     if arr == [] or arr is None:
@@ -19,6 +53,14 @@ def playcards(arr):
 
 
 def f(arr, L, R):
+    '''
+    观察到有两个可变参数，对于f和g分别构造一个二维表
+    两个表互相依赖，填充即可
+    :param arr:
+    :param L:
+    :param R:
+    :return:
+    '''
     if L == R:
         return arr[L]
 
@@ -62,7 +104,7 @@ if __name__ == '__main__':
     testtimes = 100
     for i in range(testtimes):
         arr = generateRandomArr(maxSize, maxValue)
-        a = playcards(arr)
+        a = winnerdp(arr)
         b = playCardsDP(arr)
 
         if a != b:

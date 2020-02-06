@@ -78,19 +78,38 @@ def allPermutationNoRepeat(str):
     return sorted(res)
 
 
-def aaa(nums):
+def allPermutationArr(arr):
+    '''
+    数组的全排列
+    :param arr:
+    :return:
+    '''
+    if arr is None or arr == []:
+        return []
+
     res = []
 
-    nums[0], nums[1] = nums[1], nums[0]
-    print(nums)
-    res.append(nums)
+    def process(i):
+        if i == len(arr):
+            res.append(arr.copy())
+            return
+
+        for j in range(i, len(arr)):
+            arr[i], arr[j] = arr[j], arr[i]
+            process(i+1)
+            arr[i], arr[j] = arr[j], arr[i]
+
+    process(0)
     return res
+
 
 
 if __name__ == '__main__':
     a = 'hello'
     c = 'ab'
     allPermutation(c)
+    arr = [1,2,3]
+    print(allPermutationArr(arr))
 
 
 
