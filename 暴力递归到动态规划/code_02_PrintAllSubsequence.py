@@ -4,6 +4,10 @@
 @author: Tokyo
 @file: code_02_PrintAllSubsequence.py
 @desc:
+打印一个字符串的全部子序列，包括空字符串
+ex：
+'abc'
+返回 ['abc', 'ab', 'ac', 'a', 'bc', 'b', 'c', '']
 '''
 
 def printAllSubsequence(strs):
@@ -39,9 +43,34 @@ def quickAllSubsequence(strs):
 
 
 
+
+
+
+def findsub(str):
+    strs = ''
+    res = []
+
+    def process(i, strs):
+        if i == len(str):
+            res.append(strs)
+            return
+
+        keepstr = strs+str[i]
+        notkeepstr = strs
+        process(i+1, keepstr)
+        process(i+1, notkeepstr)
+
+    process(0,strs)
+    return res
+
+
+
 if __name__ == '__main__':
-    a = 'abc'
+    a = 'abcdef'
     b = printAllSubsequence(a)
     print(b)
-    print(quickAllSubsequence(a))
+    print(findsub(a))
+    print(b == findsub(a))
+
+
 

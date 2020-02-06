@@ -41,6 +41,14 @@ def process(strs, i):
 
 
 
+
+
+
+
+
+
+
 if __name__ == '__main__':
-    a = '123426'
+    a = ''
     print(convertLetterString(a))
+    print(convertLetter(a))

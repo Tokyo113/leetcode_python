@@ -20,5 +20,12 @@ def process(i, start, end, other):
     print("move "+str(i)+' from'+start+' to '+end)
     process(i-1, other, end, start)
 
+
+
+
+
+
 if __name__ == '__main__':
-    Hanoi(10)
+    hanoi11(6)
+    print('===')
+    Hanoi(3)

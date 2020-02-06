@@ -30,9 +30,31 @@ def s(arr, L, R):
 
     return min(f(arr, L+1, R),  f(arr, L, R-1))
 
+
+
+def winner(arr):
+    return max(f1(arr, 0, len(arr)-1), g1(arr, 0, len(arr)-1))
+
+def f1(arr, L, R):
+    if L == R:
+        return arr[L]
+
+    return max(arr[L] + g1(arr, L+1, R), arr[R]+g1(arr, L, R-1))
+
+
+def g1(arr, L, R):
+    if L == R:
+        return 0
+    return min(f1(arr, L+1, R), f1(arr, L, R-1))
+
+
+
+
+
 if __name__ == '__main__':
     a = [1,100,45,67,8,34,21,2,9]
     b = [1,9,1]
     print(win1(a))
-    print(win1(b))
+    print(winner(b))
+
 

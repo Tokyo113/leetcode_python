@@ -4,7 +4,35 @@
 @author: Tokyo
 @file: code_05_ReverseStackUsingRecursive.py
 @desc:
+给你一个栈，请你逆序这个栈，不能使用额外的数据结构，只能使用递归函数
+
+1.取出栈底的元素
+2.逆序剩余部分
+3.将该元素放到栈顶
 '''
+
+def reverseStack(stack):
+    if len(stack) <= 1 or stack is None:
+        return
+
+    ele = helper(stack)
+    reverseStack(stack)
+    stack.append(ele)
+
+
+def helper(stack):
+    if len(stack) == 1:
+        return stack.pop()
+    res = stack.pop()
+    last = helper(stack)
+    stack.append(res)
+    return last
+
+
+
+
+
+
 
 def reverse(stack):
     if len(stack) == 0 or stack is None:
@@ -12,10 +40,6 @@ def reverse(stack):
     p = getAndRemoveLastElement(stack)
     reverse(stack)
     stack.append(p)
-
-
-
-
 
 def getAndRemoveLastElement(stack):
     if len(stack) == 0:
@@ -30,7 +54,12 @@ def getAndRemoveLastElement(stack):
 
 
 
+
+
+
+
 if __name__ == '__main__':
     a = [1,2,3,4,5]
-    reverse(a)
+    # reverse(a)
+    reverseStack(a)
     print(a)
