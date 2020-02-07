@@ -9,6 +9,42 @@
 
 '''
 
+def coinaaa(arr, aim):
+    return process(arr, 0, aim)
+
+def process(arr, i, res):
+    if res < 0:
+        return 0
+    if res == 0:
+        return 1
+    if i == len(arr):
+        return 0
+    ways = 0
+    k = 0
+    while res - k*arr[i] >= 0:
+        ways += process(arr, i+1, res-k*arr[i])
+        k +=1
+
+    return ways
+
+
+def coinDP(arr, aim):
+    dp = [[0 for i in range(aim+1)] for i in range(len(arr)+1)]
+    for i in range(len(arr)+1):
+        dp[i][0] = 1
+
+    for i in range(len(arr)-1, -1, -1):
+        for res in range(1,aim+1):
+            dp[i][res] = dp[i+1][res]
+            dp[i][res] += dp[i][res-arr[i]] if res - arr[i] >= 0 else 0
+
+    return dp[0][aim]
+
+
+
+
+
+
 def coinWay1(arr, aim):
     if arr is None or len(arr) == 0:
         return 0
@@ -89,22 +125,25 @@ def generateRandArr(maxSize, maxValue):
 if __name__ == '__main__':
     # maxSize = 5
     # maxValue = 5
-    # testTimes = 1000
+    # testTimes = 10
     # for i in range(testTimes):
     #     arr = generateRandArr(maxSize, maxValue)
     #     aim = int(random.random()*2*maxValue)+maxValue
-    #     a = coinWay1(arr,aim)
-    #     b = coinWay2(arr, aim)
+    #     a = coinWays3(arr,aim)
+    #     b = coinDP(arr, aim)
     #
     #     if a != b:
     #         print("fuck!!!")
     #         break
-    #
+
     # print("Wow,bbd")
 
-    arr = [1,2,3,4,5,6,7,10]
-    a = coinWays3(arr, 12)
-    b = coinWay2(arr, 12)
-    print(a,b)
+    arr = [1,25,3,11,5,6,7,10]
+    aim = 15
+    a = coinWays3(arr, aim)
+    b = coinWay2(arr, aim)
+    c = coinaaa(arr, aim)
+    print(a,b,c)
+    print(coinDP(arr, aim))
 
 

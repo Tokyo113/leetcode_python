@@ -27,13 +27,32 @@ def winner2(n):
         return "后手"
     else:
         return "先手"
+
+
+
+def chicao(n):
+    if n == 0:
+        return '后手'
+    if n == 1:
+        return '先手'
+    num = 1
+    while n - num >= 0:
+        if chicao(n-num) == '后手':
+            return '先手'
+        if num > n/4:
+            break
+        num = num *4
+
+    return '后手'
 if __name__ == '__main__':
     for n in range(50):
         a = winner(n)
-        b = winner2(n)
+        b = chicao(n)
 
         if a != b:
             print("fucking fucked")
+
+    print('棒棒哒！')
 
 
 
