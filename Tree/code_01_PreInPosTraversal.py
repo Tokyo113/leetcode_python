@@ -90,7 +90,6 @@ def posOrderUnrecur(node):
         node = s2.pop()
         print(node.ele, end=" ")
 
-
 def inOrderUnRecur(node):
     if node is None:
         return
@@ -104,36 +103,54 @@ def inOrderUnRecur(node):
             print(node.ele, end=" ")
             node = node.right
 
-def posorder(head):
+def xianxubianli(head):
     if head is None:
-        return None
-    stack = Stack()
-    s2 = Stack()
-    stack.push(head)
-    while not stack.is_empty():
-        head = stack.pop()
+        return
+    stack = []
+    stack.append(head)
+    while stack != []:
+        node = stack.pop()
+        print(node.ele, end=" ")
+        if node.right != None:
+            stack.append(node.right)
+        if node.left != None:
+            stack.append((node.left))
 
-        if head.left != None:
-            stack.push(head.left)
-        if head.right != None:
-            stack.push(head.right)
-        s2.push(head)
 
-    while not s2.is_empty():
-        print(s2.pop().ele, end=" ")
-
-def inorder(head):
+def houxubianli(head):
     if head is None:
-        return None
-    stack = Stack()
-    while head != None or not stack.is_empty():
+        return
+    stack = []
+    helper = []
+    stack.append(head)
+    while stack != []:
+        ele = stack.pop()
+        if ele.left != None:
+            stack.append(ele.left)
+        if ele.right != None:
+            stack.append(ele.right)
+        helper.append(ele)
+    while helper != []:
+        print(helper.pop().ele, end=" ")
+
+def zhongxubianli(head):
+    if head is None:
+        return
+    stack = []
+    while stack != [] or head != None:
         if head != None:
-            stack.push(head)
+            stack.append(head)
             head = head.left
         else:
-            head = stack.pop()
-            print(head.ele, end=" ")
-            head = head.right
+            ele = stack.pop()
+            print(ele.ele, end=' ')
+            head = ele.right
+
+
+
+
+
+
 
 
 
@@ -170,5 +187,8 @@ if __name__ == '__main__':
     posOrderUnrecur(head)
     print("")
     print("=======================")
-    inorder(head)
+
+    print(zhongxubianli(head))
+
+    print(inOrderUnRecur(head))
 

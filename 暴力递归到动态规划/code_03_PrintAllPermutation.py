@@ -103,6 +103,15 @@ def allPermutationArr(arr):
     return res
 
 
+import itertools
+def funccc(arr):
+    res = []
+    for i in itertools.permutations(arr):
+        res.append(list(i))
+    return res
+
+
+
 
 if __name__ == '__main__':
     a = 'hello'
@@ -110,6 +119,8 @@ if __name__ == '__main__':
     allPermutation(c)
     arr = [1,2,3]
     print(allPermutationArr(arr))
+    print(funccc(arr))
+
 
 
 

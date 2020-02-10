@@ -51,6 +51,30 @@ def partition(arr, L, R):
 
 
 
+def quickpai(arr, L, R):
+    if L < R:
+        rand = L+int(random.random()*(R-L+1))
+        arr[rand], arr[R] = arr[R], arr[rand]
+        p = partition1(arr, L, R)
+        quickpai(arr, 0, p[0]-1)
+        quickpai(arr, p[1]+1, R)
+
+def partition1(arr, L, R):
+    less, more = L-1, R+1
+    num = arr[R]
+    cur = L
+    while cur < more:
+        if arr[cur] < num:
+            arr[cur], arr[less+1] = arr[less+1], arr[cur]
+            cur += 1
+            less += 1
+        elif arr[cur] == num:
+            cur += 1
+        else:
+            arr[cur], arr[more-1] = arr[more-1], arr[cur]
+            more -= 1
+    return less+1, more-1
+
 
 # Python对数器
 def comparator(arr):
@@ -73,15 +97,15 @@ def copyArray(arr):
     return res
 
 if __name__ == '__main__':
-    testTime = 5000
-    maxSize = 100
-    maxValue = 100
+    testTime = 500
+    maxSize = 10
+    maxValue = 10
     succeed = True
     for i in range(0, testTime):
         arr1 = generateRandomArray(maxSize, maxValue)
         arr2 = arr1.copy()
 
-        kkk(arr1, 0, len(arr1)-1)
+        quickpai(arr1, 0, len(arr1)-1)
         comparator(arr2)
 
         if (arr1 != arr2):

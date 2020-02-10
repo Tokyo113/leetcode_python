@@ -4,11 +4,14 @@
 @author: Tokyo
 @file: code_03_LowestLexicography.py
 @desc:
+给定一个字符串类型的数组strs，找到一种拼接方式，使得把所有字符串拼起来之后形成的
+字符串具有最小的字典序。
 '''
 
 import functools
 def comparator(a, b):
     """
+    自定义比较函数，升序排列a在前（a<b）就返回-1，b在前就返回1
     比较合并后的字典序
     :param a:
     :param b:
@@ -26,14 +29,10 @@ def lowestString(strs):
         return ""
     # strs = sorted(strs, key=functools.cmp_to_key(comparator))
     strs.sort(key=functools.cmp_to_key(comparator))
-    res = ""
-    for i in range(len(strs)):
-        res += strs[i]
-    return res
-
-
+    return ''.join(strs)
 
 import itertools
+
 def baoli(strs):
     str_sort = []
     # 字符串列表全排列
@@ -101,12 +100,14 @@ if __name__ == '__main__':
 
     strs1 = ["jibw", "ji", "jp", "bw", "jibw"]
     print(lowestString(strs1))
+    print(baoli(strs1))
+    print('===')
 
     strs2 = ["ba", "b"]
     print(lowestString(strs2))
     print(baoli(strs1))
     print(method1(strs1))
 
-    print(len(quanpailie(strs1)))
+
 
 

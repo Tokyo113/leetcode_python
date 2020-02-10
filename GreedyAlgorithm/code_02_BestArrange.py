@@ -4,6 +4,10 @@
 @author: Tokyo
 @file: code_02_BestArrange.py
 @desc:
+一些项目要占用一个会议室宣讲，会议室不能同时容纳两个项目的宣讲。
+给你每一个项目开始的时间和结束的时间(给你一个数 组，里面是一个个具体
+的项目)，你来安排宣讲的日程，要求会议室进行的宣讲的场次最多。
+返回这个最多的宣讲场次。
 '''
 
 class Program(object):
@@ -76,6 +80,17 @@ def baoli_method(programs):
     return set_res
 
 
+def arrangeMeeting(arr):
+    arr.sort(key=lambda x:x[1])
+    start = 0
+    cnt = 0
+    for i in arr:
+        if i[0] >= start:
+            cnt += 1
+            start  = i[1]
+
+    return cnt
+
 
 
 
@@ -119,11 +134,13 @@ if __name__ == '__main__':
     pro4 = Program(4,8.5)
     pro5 = Program(1,1.5)
     pro6 = Program(3,7.5)
+    arr = [[1,2.5], [2,2.5], [3,5.5], [4,8.5], [1,1.5], [3,7.5]]
     progarms = [pro1, pro2, pro3, pro4, pro5, pro6]
     print(arrange(progarms))
-    a = [1,2,3,4]
-    b = [(1,3), (3,5), (3,6), (4,7)]
-    print(len(baoli_method(b)))
+    # a = [1,2,3,4]
+    # b = [(1,3), (3,5), (3,6), (4,7)]
+    # print(len(baoli_method(b)))
+    print(arrangeMeeting(arr))
 
 
 

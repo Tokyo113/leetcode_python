@@ -4,6 +4,19 @@
 @author: Tokyo
 @file: code_06_MedianQuick.py
 @desc:
+中位数是有序列表中间的数。如果列表长度是偶数，中位数则是中间两个数的平均值。
+
+例如，
+
+[2,3,4] 的中位数是 3
+
+[2,3] 的中位数是 (2 + 3) / 2 = 2.5
+
+设计一个支持以下两种操作的数据结构：
+
+void addNum(int num) - 从数据流中添加一个整数到数据结构中。
+double findMedian() - 返回目前所有元素的中位数。
+从一个数据流中随时可以取得中位数
 '''
 import heapq
 class MedianHolder(object):
@@ -53,6 +66,35 @@ def getMedianofArray(arr):
         return arr[mid]
 
 
+class tokyo(object):
+    def __init__(self):
+        self.minHeap = []
+        self.maxHeap = []
+
+    def addNum(self, num):
+        if self.maxHeap == []:
+            heapq.heappush(self.maxHeap, -num)
+        else:
+            if num <= -self.maxHeap[0]:
+                heapq.heappush(self.maxHeap, -num)
+            else:
+                heapq.heappush(self.minHeap, num)
+
+            if len(self.maxHeap) == len(self.minHeap)+2:
+                heapq.heappush(self.minHeap, -heapq.heappop(self.maxHeap))
+            elif len(self.minHeap) == len(self.maxHeap)+2:
+                heapq.heappush(self.maxHeap, -heapq.heappop(self.minHeap))
+
+
+
+    def getMedian(self):
+        if len(self.maxHeap) == 0 and len(self.minHeap) == 0:
+            return None
+        if len(self.minHeap) == len(self.maxHeap):
+            return (-self.maxHeap[0]+self.minHeap[0])/2
+        else:
+            return self.minHeap[0] if len(self.minHeap) > len(self.maxHeap) else -self.maxHeap[0]
+
 def generateRandomArray(maxSize, maxValue):
     import random
     random_list = []
@@ -66,9 +108,9 @@ if __name__ == '__main__':
     err = False
     for i in range(0, testTime):
         arr1 = generateRandomArray(maxSize, maxValue)
-        medianHolder = MedianHolder()
+        medianHolder = tokyo()
         for i in range(len(arr1)):
-            medianHolder.addNumber(arr1[i])
+            medianHolder.addNum(arr1[i])
 
         if medianHolder.getMedian() != getMedianofArray(arr1):
             err = True

@@ -1,3 +1,5 @@
+
+
 #coding:utf-8
 '''
 @Time: 2019/11/13 9:20
@@ -34,7 +36,7 @@
 和基本题型安排会议室一样，优先选择结束早的
 但存在反例[(5,5),(2,6),(4,6)],按以上的贪心策略只能一门课
 所以正确的贪心策略：
-按花费时间放入大根堆，新加入一门课程如果超出期限的话
+已加入的课程按花费时间放入大根堆，新加入一门课程如果超出期限的话
 从大根堆弹出一个持续时间最长的课再加入新课程
 只要新课程的持续时间小于堆顶，就一定可以加入，
 因为新加入的课程的持续时间是一定晚于前面的课程的
@@ -61,3 +63,30 @@ def coursesArrange(courses):
 
 
     return len(heap)
+
+
+def coursesNum(courses):
+    if courses == [] or courses is None:
+        return 0
+    courses.sort(key=lambda i:i[1])
+    start = 0
+    heap = []
+    for i in range(len(courses)):
+        if start+courses[i][0] <= courses[i][1]:
+            start += courses[i][0]
+            heapq.heappush(heap, [-courses[i][0], courses[i][1]])
+        elif courses[i][0] <= -heap[0][0]:
+            popCourse = heapq.heappop(heap)
+            start = start +popCourse[0] + courses[i][0]
+            heapq.heappush(heap, [-courses[i][0], courses[i][1]])
+    return len(heap)
+
+
+if __name__ == '__main__':
+
+    courses = [[100, 200], [200, 1300], [1000, 1250], [2000, 3200]]
+    print(coursesArrange(courses))
+    print(coursesNum(courses))
+    courses1 = [(5,5),(2,6),(4,6)]
+    print(coursesArrange(courses1))
+    print(coursesNum(courses1))
