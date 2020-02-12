@@ -3,7 +3,10 @@
 @Time: 2019/11/4 20:33
 @author: Tokyo
 @file: code_07_isFull.py
-@desc:满二叉树
+@desc:
+判断是否是满二叉树
+使用二叉树的递归套路
+返回子树的节点数和层数
 '''
 
 
@@ -33,23 +36,22 @@ def process(head):
 
 
 
-def full(head):
-    return aaa(head)
 
-def aaa(head):
+def manerchashu(head):
     if head is None:
-        return 0, 0, True
-    isf = False
-    left = aaa(head.left)
-    right = aaa(head.right)
-    nodes = left[0] + right[0] + 1
-    level = max(right[1], left[1]) + 1
+        return True
+    res = process1(head)
+    return res[1] == 2**res[0]-1
 
-    if nodes == (2 ** level -1):
-        isf = True
-    return nodes, level, isf
+def process1(head):
+    if head is None:
+        return 0, 0
+    l = process1(head.left)
+    r = process1(head.right)
+    num = l[1]+r[1]+1
+    height = max(l[0], r[0])+1
 
-
+    return height, num
 
 
 if __name__ == '__main__':
@@ -58,8 +60,9 @@ if __name__ == '__main__':
     head.right = Node(10)
     head.right.left = Node(7)
     head.right.right = Node(8)
-    # head.right.left.right = Node(7)
-    # head.left.left = Node(2)
-    # head.left.right = Node(4)
+    head.right.left.right = Node(7)
+    head.left.left = Node(2)
+    head.left.right = Node(4)
     print(isFull(head))
     print(full(head))
+    print(manerchashu(head))

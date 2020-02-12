@@ -138,6 +138,30 @@ def process(head):
 
     return min_ele, max_ele, is_bst
 
+def taolu(head):
+    if head is None:
+        return True
+    return process1(head)
+
+def process1(head):
+    if head is None:
+        return None
+    minval, maxval = head.ele, head.ele
+    isbst = True
+    left = process1(head.left)
+    right = process1(head.right)
+    if left != None:
+        minval = min(minval, left[0])
+        maxval = max(maxval, left[1])
+    if right != None:
+        minval = min(minval, right[0])
+        maxval = max(maxval, right[1])
+
+    if left != None and (not left[2] or left[1] >= head.ele):
+        isbst = False
+    if right != None and (not right[2] or right[0]  <= head.ele):
+        isbst = False
+    return minval, maxval, isbst
 
 
 
@@ -155,9 +179,12 @@ if __name__ == '__main__':
     head.right.left = Node(6)
     head.left.left = Node(2)
     head.left.right = Node(4)
-    # print(isBST1(head))
+
+    print(isBST1(head))
     print(isBST2(head))
     print(isBST3(head))
     print(isBST4(head))
+    print(taolu(head))
+
 
 

@@ -39,30 +39,25 @@ def mostLeft(node):
     return node
 
 
-def houji(node):
-    if node is None:
+def successorNode1(node):
+    if  node is None:
         return None
     if node.right != None:
-        return findmostleft(node.right)
+        return findleft(head,node.right)
     else:
         parent = node.parent
-        while parent != None:
-            if parent.left == node:
-                return parent
-            else:
-                node = parent
-                parent = node.parent
+        while parent != None and parent.left != node:
+            node = parent
+            parent = parent.parent
         return parent
 
-
-def findmostleft(node):
-
-
+def findleft(node):
+    if node is None:
+        return None
     while node.left != None:
         node = node.left
 
     return node
-
 
 
 if __name__ == '__main__':
@@ -110,4 +105,4 @@ if __name__ == '__main__':
     print(test.ele , " next: ", successorNode(test).ele)
     test = head.right.right  # 10's next is null
     print(successorNode(test))
-    print(houji(test))
+

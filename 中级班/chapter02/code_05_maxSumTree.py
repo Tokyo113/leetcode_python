@@ -11,9 +11,13 @@
 
 class Node(object):
     def __init__(self, value):
-        self.value = value
+        self.val = value
         self.left = None
         self.right = None
+
+
+
+
 
 
 def maxSum(head):
@@ -21,25 +25,27 @@ def maxSum(head):
         return
     return process(head)
 
-import sys
+
 def process(node):
     if node.left == None and node.right == None:
-        return node.value
-    res = -sys.float_info.max
+        return node.val
+    res = float('-inf')
     if node.left != None:
         res = process(node.left)
     if node.right != None:
         res = max(process(node.right), res)
-    return node.value+res
+    return node.val+res
 
 
 if __name__ == '__main__':
-    head = Node(4)
-    head.left =Node(1)
-    head.left.right = Node(5)
+    head = Node(-4)
+    head.left =Node(-1)
+    head.left.right = Node(-5)
     head.right = Node(-7)
-    head.right.left = Node(3)
+    head.right.left = Node(-3)
     print(maxSum(head))
+    print(ppp(head))
+
 
 
 

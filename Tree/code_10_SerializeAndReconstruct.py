@@ -57,36 +57,111 @@ def serialByPre(head):
 
 
 def reconByPreString(preStr):
-    values = preStr.split("!")
-    queue = Queue()
-    for i in range(len(values)):
-        queue.push(values[i])
+    '''
+    先序遍历序列的反序列化，使用队列
+    每次从头部弹出
+    :param preStr:
+    :return:
+    '''
+    strs = preStr.split("!")
+    return reconByPreOrder(strs)
 
-    return reconByPreOrder(queue)
 
-
-def reconByPreOrder(queue):
-    value = queue.poll()
+def reconByPreOrder(strs):
+    value = strs.pop(0)
     if value == "#":
         return None
     head = Node(int(value))
-    head.left = reconByPreOrder(queue)
-    head.right = reconByPreOrder(queue)
+    head.left = reconByPreOrder(strs)
+    head.right = reconByPreOrder(strs)
     return head
 
-def serial_in(head):
+
+
+
+def serializeByLevel(head):
     if head is None:
-        return "#_"
+        return '#_'
+    queue = []
+    queue.append(head)
+    res = ''
+    while queue != []:
+        pp = queue.pop(0)
+        if pp == '#_':
+            res += pp
+        else:
+            res += str(pp.ele)+'_'
 
-    res = serial_in(head.left)
-    res += str(head.ele) + "_"
-    res += serial_in(head.right)
-
+            if pp.left != None:
+                queue.append(pp.left)
+            else:
+                queue.append('#_')
+            if pp.right != None:
+                queue.append(pp.right)
+            else:
+                queue.append('#_')
     return res
 
 
+def reconstructByLevel(strs):
+    '''
+    按层遍历反序列化
+    :param strs:
+    :return:
+    '''
+    strs = strs.split('_')
+
+    queue = []
+    head = getNode(strs)
+    queue.append(head)
+
+    while queue != []:
+        node = queue.pop(0)
+
+        node.left = getNode(strs)
+        node.right = getNode(strs)
+        if node.left != None:
+            queue.append(node.left)
+        if node.right != None:
+            queue.append(node.right)
+    return head
 
 
+def getNode(strs):
+    pp = strs.pop(0)
+    if pp == '#':
+        return None
+    return Node(int(pp))
+
+
+
+
+
+def xuliehua(head):
+    if head is None:
+        return '#!'
+
+    res = xuliehua(head.left)
+    res += str(head.ele)+'!'
+    res += xuliehua(head.right)
+    return res
+
+def fanxuliehua(str):
+    str = str.split('!')
+
+    return process(str)
+def process(str):
+    if str == []:
+        return
+    value = str.pop(0)
+    if value == '#':
+        return None
+    head = Node(0)
+    head.left = process(str)
+    head.ele = int(value)
+    head.right = process(str)
+
+    return head
 
 
 
@@ -111,9 +186,22 @@ if __name__ == '__main__':
     print(str2)
     head_re = reconByPreString(str2)
     print(serialByPre(head_re))
-    print("in_order:")
-    str22 = serial_in(head)
-    print(str22)
+
+    print('按层遍历：')
+    print(serializeByLevel(head))
+    aa = serializeByLevel(head)
+    head_level = reconstructByLevel(aa)
+    print(serializeByLevel(head_level))
+
+    print('='*40)
+    sss = xuliehua(head)
+    head222 = fanxuliehua(sss)
+    print(sss)
+    print(xuliehua(head222))
+
+
+
+
 
 
 

@@ -4,6 +4,7 @@
 @author: Tokyo
 @file: code_05_isCBT.py
 @desc: complete binary tree
+判断一棵二叉树是否是完全二叉树
 '''
 
 
@@ -67,36 +68,40 @@ def isCBT(head):
     return True
 
 
-def iswanquan(head):
+
+def cbt(head):
     if head is None:
         return True
-    queue = Queue()
-    queue.push(head)
-    leaf = False
-    while not queue.is_empty():
-        head = queue.poll()
+    queue = []
+    queue.append(head)
+    isleaf = False
+    while queue != []:
+        node = queue.pop(0)
+        l = node.left
+        r = node.right
 
-        if head.right != None and head.left is None:
+        if (r != None and l == None) or (isleaf and (l!= None or r != None)):
             return False
-        if (leaf and (head.right != None or head.left != None)):
-            return False
+
+        if node.left == None or node.right == None:
+            isleaf = True
 
 
-        if head.left != None:
-            queue.push(head.left)
-        if head.right != None:
-            queue.push(head.right)
-        if head.left is None or head.right is None:
-            leaf = True
+        if l != None:
+            queue.append(l)
+        if r != None:
+            queue.append(r)
+
     return True
-
 
 if __name__ == '__main__':
     head = Node(5)
-    # head.left = Node(3)
+    head.left = Node(3)
     head.right = Node(10)
-    # head.right.left = Node(7)
-    # head.left.left = Node(2)
-    # head.left.right = Node(4)
+    head.right.left = Node(7)
+    head.left.left = Node(2)
+    head.left.right = Node(4)
+    head1 = None
     print(isCBT(head))
-    print(iswanquan(head))
+
+    print(cbt(head))

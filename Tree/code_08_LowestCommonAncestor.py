@@ -60,20 +60,52 @@ def LowestCommonAncestor1(head, o1, o2):
     return left if left != None else right
 
 
-def lowest(head, node1, node2):
-    if head is None or head == node2 or head == node1:
+def LCA(head, o1, o2):
+    if head is None or head == o1 or head == o2:
         return head
+    left = LCA(head.left, o1, o2)
+    right = LCA(head.right, o1, o2)
 
-    left = lowest(head.left, node1, node2)
-    right = lowest(head.right, node1, node2)
     if left != None and right != None:
         return head
-
     return left if left != None else right
 
 
 
+def gonggong(head,node1, node2):
+    if head is None:
+        return None
+    if node1 == head or node2 == head:
+        return head
+    if node1 == node2:
+        return node2
+    fatherMap = {}
 
+    process1(head, fatherMap)
+    nodeMap = []
+    fatherMap[head] = head
+    nodeMap.append(head)
+    while node1 != head:
+        nodeMap.append(node1)
+        node1 = fatherMap.get(node1)
+    while node2 != head:
+        if node2 in nodeMap:
+            return node2
+        else:
+            node2 = fatherMap.get(node2)
+    return head
+
+
+
+def process1(head, map):
+    if head is None:
+        return
+    if head.left != None:
+        map[head.left] = head
+    if head.right != None:
+        map[head.right] = head
+    process1(head.left, map)
+    process1(head.right, map)
 
 
 
@@ -87,8 +119,8 @@ if __name__ == '__main__':
     head.right.right = Node(7)
     head.right.right.left = Node(8)
     print("===============")
-    o1 = head.right.right.left
-    o2 = head.right.left
+    o1 = head.left
+    o2 = head.left.left
     print("o1 : ", o1.ele)
     print("o2 : ", o2.ele)
     print("ancestor : ", LowestCommonAncestor(head, o1, o2).ele)
@@ -96,7 +128,9 @@ if __name__ == '__main__':
     print("ancestor : ", LowestCommonAncestor(head, head, o2).ele)
     print("ancestor_plus : ", LowestCommonAncestor1(head, head, o2).ele)
     print("===============")
-    print(lowest(head, o1, o2).ele)
+
+    print(gonggong(head,o1,o2).ele)
+    print(LCA(head, o1,o2).ele)
 
 
 

@@ -31,6 +31,24 @@ def process(head):
     return isBance, height
 
 
+def pingheng(head):
+    if head is None:
+        return True
+    return process1(head)[1]
+
+def process1(head):
+    if head is None:
+        return 0 ,True
+
+    isBt = True
+    l = process1(head.left)
+    r = process1(head.right)
+    if not l[1] or not r[1] or abs(l[0]-r[0])>1:
+        isBt = False
+    height = max(l[0], r[0])+1
+    return height, isBt
+
+
 
 
 if __name__ == '__main__':
@@ -41,10 +59,10 @@ if __name__ == '__main__':
     head.right.left = Node(7)
     head.right.right = Node(7)
     head.right.left.right = Node(7)
-    # head.left.left = Node(2)
-    # head.left.right = Node(4)
+    head.left.left = Node(2)
+    head.left.right = Node(4)
     print(isBalancedTree(head))
-    print(isbbbb(head))
+    print(pingheng(head))
 
 
 

@@ -25,6 +25,16 @@ def printProcess(i, N, ao):
     printProcess(i+1, N, False)
 
 
+def zhezhi(n):
+    return process(1,n,True)
+def process(i, n, ou):
+    if i > n:
+        return
+    process(i+1, n, True)
+    print('凹' if ou else '凸', end=' ')
+    process(i+1, n, False)
+
+
 
 
 
@@ -35,3 +45,6 @@ if __name__ == '__main__':
     paperfolding(1)
     print("")
     paperfolding(2)
+    print('')
+    print(zhezhi(5))
+

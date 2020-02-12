@@ -40,6 +40,20 @@ def process(head):
 
     return maxDistance, height
 
+def juli(head):
+    if head is None:
+        return 0
+    return process1(head)[1]
+
+def process1(node):
+    if node is None:
+        return 0,0
+    left = process1(node.left)
+    right = process1(node.right)
+    height = max(left[0], right[0])+1
+    dis = max(left[1], right[1], right[0]+left[0]+1)
+    return height, dis
+
 
 
 if __name__ == '__main__':
@@ -65,3 +79,4 @@ if __name__ == '__main__':
     head2.right.left.left.left = Node(8)
     head2.right.right.right.right = Node(9)
     print(getMaxDistance(head2))
+    print(juli(head2))
