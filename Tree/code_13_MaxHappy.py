@@ -58,6 +58,7 @@ def process(employee):
 
 
 
+
 if __name__ == '__main__':
     d = Employee(80, None)
     e = Employee(100, None)
@@ -66,4 +67,5 @@ if __name__ == '__main__':
     c = Employee(150, [e])
     boss = Employee(20, [a, b, c])
     print(happyParty(boss))
+
 
