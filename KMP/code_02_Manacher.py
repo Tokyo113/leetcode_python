@@ -33,6 +33,7 @@ def maxLcpsLength(s):
     C = -1
     R = -1
     for i in range(len(strs)):
+        # 这一句总结了四种情况
         pArr[i] = min(pArr[2*C-i], R-i) if R > i else 1
 
         while i+pArr[i] < len(strs) and i-pArr[i] > -1:
@@ -132,14 +133,61 @@ def manacher(s):
     return maxP-1
 
 
+def baoli(s):
+    '''
+    暴力解法O(N2)
+    :param s:
+    :return:
+    '''
+    if s is None:
+        return 0
+    s = '!'+'!'.join(s)+'!'
+    maxlen = 0
+    for i in range(len(s)):
+        l, r = i-1, i+1
+        cnt = 1
+        while l >= 0 and r <len(s):
+            if s[l] == s[r]:
+                l -= 1
+                r += 1
+                cnt += 1
+            else:
+                maxlen = max(maxlen, cnt)
+                break
+        maxlen = max(maxlen, cnt)
+    return maxlen-1
+
+
+
+def manacher(s):
+    if s is None or s == '':
+        return 0
+    strs = '!'+'!'.join(s)+'!'
+    R = -1
+    C = -1
+    pArr = [0 for i in range(len(strs))]
+
+    for i in range(len(strs)):
+        pArr[i] = min(R-i, pArr[2*C-i]) if i < R else 1
+
+        while i+pArr[i] < len(strs) and i - pArr[i] >=0:
+            if strs[i+pArr[i]] == strs[i-pArr[i]]:
+                pArr[i] += 1
+            else:
+                break
+        if i + pArr[i] > R:
+            R = i + pArr[i]
+            C = i
+    return max(pArr)-1
+
+
 if __name__ == '__main__':
     a = 'abc1234321cb'
-    print(manacherString(a))
+
     print(maxLcpsLength(a))
     print(manacher(a))
 
-    print(manaccc(a))
-    b = 'babad'
+
+    b = 'abcb'
     print(maxLcpsLength(b))
-    print(manaccc(b))
     print(manacher(b))
