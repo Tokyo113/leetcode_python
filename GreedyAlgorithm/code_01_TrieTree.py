@@ -76,64 +76,69 @@ class Trie(object):
 
 
 
-class Node(object):
+class trieNode(object):
     def __init__(self):
         self.path = 0
         self.end = 0
-        self.next = [None for i in range(26)]
+        self.nexts = [None for i in range(26)]
 
-
-class qianzhuishu(object):
+class trieTree(object):
     def __init__(self):
-        self.root = Node()
+        self.head = trieNode()
 
-    def insert(self, word):
-        if word is None:
-            return
-        node = self.root
-        for i in range(len(word)):
-            index = ord(word[i])-ord('a')
-            if node.next[index] == None:
-                node.next[index] = Node()
-            node = node.next[index]
+    def insert(self, str):
+        node = self.head
+        for i in str:
+            index = ord(i)-ord('a')
+            if node.nexts[index] is None:
+                node.nexts[index] = trieNode()
+            node = node.nexts[index]
             node.path += 1
         node.end += 1
 
-    def search(self, word):
-        if word is None:
+
+
+    def search(self, str):
+        if str is None:
             return 0
-        node = self.root
-        for i in range(len(word)):
-            index = ord(word[i])-ord('a')
-            if node.next[index] == None:
+        node = self.head
+        for i in str:
+            index = ord(i)-ord('a')
+            if node.nexts[index] is None:
                 return 0
-            node = node.next[index]
+            node = node.nexts[index]
         return node.end
 
-    def qianzhui(self, word):
-        if word is None:
+
+
+
+    def searchTrie(self, str):
+        if str is None:
             return 0
-        node = self.root
-        for i in range(len(word)):
-            index = ord(word[i])-ord('a')
-            if node.next[index] == None:
+        node = self.head
+        for i in str:
+            index = ord(i)-ord('a')
+            if node.nexts[index] is None:
                 return 0
-            node = node.next[index]
+            node = node.nexts[index]
         return node.path
 
-    def delete(self, word):
-        if self.search(word) == 0:
+    def delete(self, str):
+        if self.search(str) == 0:
             return
 
-        node = self.root
-        for i in range(len(word)):
-            index = ord(word[i])-ord('a')
-            node.next[index].path -= 1
-            if node.next[index].path == 0:
-                node.next[index] = None
+        node = self.head
+        for i in str:
+            index = ord(i)-ord('a')
+            if node.nexts[index].path == 1:
+                node.nexts[index] = None
                 return
-            node = node.next[index]
+            else:
+                node = node.nexts[index]
+                node.path -= 1
         node.end -= 1
+
+
 
 
 
@@ -209,12 +214,14 @@ if __name__ == '__main__':
     trie.delete("zuoa")
     print(trie.search("zuoa"))
     print("========================")
-    tree = qianzhuishu()
+    tree =trieTree()
     tree.insert('abc')
     tree.insert('abf')
     tree.delete('abc')
-    print(tree.search('ab'))
-    print(tree.qianzhui('ab'))
+    tree.insert('tokyo')
+    tree.insert('tokko')
+    print(tree.search('tokyo'))
+    print(tree.searchTrie('t'))
 
 
 

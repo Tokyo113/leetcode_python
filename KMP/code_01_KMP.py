@@ -122,13 +122,22 @@ def manacher(s):
 
 
 
+
+
+
+
+
 if __name__ == '__main__':
     a = 'sdfjhweo1fwkdfndvmnve'
-    b = '1fwkdfndv'
+    b = 'fwkdfndv'
     c = '12343256787'
     index = KMP(a,b)
     print(index)
     print(kmppp(a,b))
+    # python str 类型自带find方法，作用和KMP一样
+    print(a.find(b))
+    print('====')
     print(manacher(c))
+    print(manacher1(c))
 
 
