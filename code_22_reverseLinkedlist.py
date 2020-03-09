@@ -48,6 +48,22 @@ def printLinkedlist(head):
         print(cur.ele, end=" ")
         cur = cur.next
     print("")
+
+
+def deleteDuplicates(head):
+    if head is None:
+        return None
+    pre = head
+    cur = head.next
+    while cur != None:
+        while cur != None and cur.val == pre.val:
+
+            pre.next = cur.next
+            cur = pre.next
+        if cur != None:
+            pre = cur
+            cur = cur.next
+    return head
 if __name__ == '__main__':
     a = DoubleNode(1)
     a.next = DoubleNode(2)
@@ -61,4 +77,9 @@ if __name__ == '__main__':
     printLinkedlist(a)
     b = reverseDoubleList(a)
     printLinkedlist(b)
+
+
+    head1 = Node(1)
+    head1.next = Node(1)
+    printLinkedlist(deleteDuplicates(head1))
 

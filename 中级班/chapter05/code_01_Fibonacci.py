@@ -13,7 +13,7 @@ F(N) = F(N-1)+F(N-2)
 
 def fib1(N):
     '''
-    原始方法，O（N）
+    原始方法，O（N），太慢了
     :param N:
     :return:
     '''
@@ -21,9 +21,27 @@ def fib1(N):
         return 1
     return fib1(N-1)+fib1(N-2)
 
+def fib11(n):
+    '''
+    将递归换成循环来解决，更快
+    :param n:
+    :return:
+    '''
+    if n == 1 or n == 2:
+        return 1
+    fibOne = 1
+    fibTwo = 1
+    cur = 0
+    for i in range(3, n+1):
+        cur = fibOne+fibTwo
+        fibOne = fibTwo
+        fibTwo = cur
+    return cur
+
+
 def fib2(N):
     '''
-    O(logN)
+    O(logN)，最快的方法
     |F3,F2|=|F2,F1|*[[a,b],
                         [c,d]]
     所以，F（N）=（2*2行列式）^(n-2)然后取a+c
@@ -70,5 +88,6 @@ def matrixMultiple(a, b):
 
 
 if __name__ == '__main__':
-    print(fib1(12))
-    print(fib2(12))
+    # print(fib1(45))
+    print(fib2(48))
+    print(fib11(48))

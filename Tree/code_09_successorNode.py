@@ -4,6 +4,14 @@
 @author: Tokyo
 @file: code_09_successorNode.py
 @desc:
+给定一棵二叉树和其中一个节点，
+如何找到中序遍历序列的下一个节点？
+树中除了左右子节点的指针，还多了一个指向父节点的指针
+
+思路：
+根据中序遍历的特点分情况讨论：
+1.没有右子树
+2.有右子树：右子树的最左节点
 '''
 
 
@@ -60,6 +68,12 @@ def findleft(node):
     return node
 
 
+
+
+
+
+
+
 if __name__ == '__main__':
     head = Node(6)
     head.parent = None
@@ -84,6 +98,8 @@ if __name__ == '__main__':
 
     test = head.left.left
     print(test.ele, " next: " , successorNode(test).ele)
+    print(test.ele, " next: ", findNext(head,test).ele)
+
 
     test = head.left.left.right
     print(test.ele , " next: " ,successorNode(test).ele)

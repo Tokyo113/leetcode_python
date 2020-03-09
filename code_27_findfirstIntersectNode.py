@@ -270,3 +270,6 @@ if __name__ == '__main__':
     print(getInserctNode(head1, head2).ele)
     print(findfirstnode(head1, head2).ele)
 
+    headLL = Node(1)
+    print(getLoopNode(headLL))
+

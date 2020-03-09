@@ -22,24 +22,73 @@ Kiki将人气刚好达到end，从而能够晋级下一轮？
 def kiki(x,y,z,start, end):
     if start >= end:
         return
+    coinLimit = ((end-start)/2)*x
 
-    return process(x,y,z,start, end)
+    return process(x,y,z, coinLimit, end, start, 0)
 
 
-def process(x,y,z,cur, end):
+def process(x,y,z,coinLimit, aim, cur, curCoins):
 
-    if cur == end:
-        return 0
-    if cur >= 2*end:
+    if cur == aim:
+        return curCoins
+    if curCoins > coinLimit:
         return float('inf')
-
+    if cur >= 2*aim:
+        return float('inf')
     if cur <= 0:
         return float('inf')
-    else:
-        return min(process(x,y,z,cur+2, end)+x, process(x,y,z,cur*2, end)+y, process(x,y,z,cur-2,end)+z)
+
+    minCoin = float('inf')
+
+    p1 = process(x,y,z,coinLimit, aim,cur+2, curCoins+x)
+    if p1 != float('inf'):
+        minCoin = p1
+    p2 = process(x,y,z,coinLimit, aim, cur*2, curCoins+y)
+    if p2 != float('inf'):
+        minCoin = min(minCoin, p2)
+    p3 = process(x,y,z,coinLimit, aim, cur-2, curCoins+z)
+    if p3 != float('inf'):
+        minCoin = min(minCoin, p3)
+    return minCoin
+
+def generateMatrix(n):
+    if n <= 0:
+        return []
+    if n == 1:
+        return [1]
+    res = [[0 for i in range(n)] for i in range(n)]
+    lr, lc = 0, 0
+    rr, rc =n-1, n-1
+    start = 1
+    while lr <= rr:
+        # end = ppp(lr,lc,rr,rc, res, start)
+
+        for i in range(lc, rc):
+            print('aaa')
+            res[lr][i] = start
+            start += 1
+        for i in range(lr, rr):
+            print('bbb')
+            res[i][rc] = start
+            start += 1
+        for i in range(rc, lc, -1):
+            print('ccc')
+            res[rr][i] = start
+            start += 1
+        for i in range(rr, lr, -1):
+            print('ddd')
+            res[i][lc] = start
+            start += 1
+        lr += 1
+        lc += 1
+        rr -= 1
+        rc -= 1
+
+    return res
 
 
 if __name__ == '__main__':
     x,y,z = 6,5,1
-    start, end = 10,30
-    print(kiki(x,y,z,start,end))
+    start, end = 10, 24
+    # print(kiki(x,y,z,start,end))
+    print(generateMatrix(2))
