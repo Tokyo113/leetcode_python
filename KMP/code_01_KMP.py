@@ -138,6 +138,6 @@ if __name__ == '__main__':
     print(a.find(b))
     print('====')
     print(manacher(c))
-    print(manacher1(c))
+ 
 
 

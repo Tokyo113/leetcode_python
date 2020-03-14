@@ -44,6 +44,10 @@ def g(i, n):
     return res
 
 
+
+
+
+
 def f(n):
     '''
     返回总长度为n的子序列的个数
@@ -81,6 +85,12 @@ def findKth(str):
     return res+1
 
 
+
+
+
+
 if __name__ == '__main__':
     print(findKth('abc'))
+    print(findWord('abc'))
+
 

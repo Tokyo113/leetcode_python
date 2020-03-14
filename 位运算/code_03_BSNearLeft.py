@@ -29,7 +29,7 @@ def findindex(arr, num):
     L, R = 0, len(arr)-1
     index = -1
 
-    while L <= R:
+    while L < R:
         mid = L + ((R-L)>>1)
         if arr[mid] >= num:
             R = mid - 1

@@ -32,6 +32,11 @@ def maxSum1(arr):
     return res
 
 def maxSum2(arr):
+    '''
+    时间复杂度O(N),空间O(1)
+    :param arr:
+    :return:
+    '''
     if arr is None or arr == []:
         return
     cur = 0
@@ -43,16 +48,31 @@ def maxSum2(arr):
             cur = 0
     return maxS
 
+def maxSubArray(nums):
+    '''
+    时间和空间都是O(N)
+    :param nums:
+    :return:
+    '''
+    if nums is None or nums == []:
+        return
+    res = [0 for i in range(len(nums))]
+    res[0] = nums[0]
+    for i in range(1, len(nums)):
+        res[i] = max(res[i - 1] + nums[i], nums[i])
+    return max(res)
 
 
 if __name__ == '__main__':
     a = [1,1,-1,-10,11,4,-6,9,20,-10,-2]
     print(maxSum1(a))
     print(maxSum2(a))
+    print(maxSubArray(a))
 
     arr1 = [-2, -3, -5, 40, -10, -10, 100, 1]
     print(maxSum1(arr1))
     print(maxSum2(arr1))
+    print(maxSubArray(arr1))
 
     arr2 = [-2, -3, -5, 0, 1, 2, -1]
     print(maxSum1(arr2))
@@ -61,3 +81,4 @@ if __name__ == '__main__':
     arr3 = [-2, -3, -5, -1]
     print(maxSum1(arr3))
     print(maxSum2(arr3))
+    print(maxSubArray(arr3))

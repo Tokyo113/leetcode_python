@@ -10,6 +10,9 @@ ex：
 返回 ['abc', 'ab', 'ac', 'a', 'bc', 'b', 'c', '']
 '''
 
+
+
+
 def printAllSubsequence(strs):
     res = ''
     final = []
@@ -70,7 +73,9 @@ if __name__ == '__main__':
     b = printAllSubsequence(a)
     print(b)
     print(findsub(a))
-    print(b == findsub(a))
+    print(findppp(a))
+    print(findppp(a) == b)
+
 
 
 

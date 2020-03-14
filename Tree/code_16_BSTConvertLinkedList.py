@@ -8,8 +8,11 @@
 next认为是right的话。
 给定一个搜索二叉树的头节点head，请转化成一条有序的双向链表，并返回链
 表的头节点。
-
+进阶：改成循环双向链表
 二叉树的套路解法
+循环双向链表的话
+1：还按照普通双向链表做，最后连起来头和尾
+2.见方法二，只返回一个节点即可
 '''
 
 class Node():
@@ -39,6 +42,41 @@ def process(node):
     head = node if left[0] is None else left[0]
     tail = node if right[1] is None else right[1]
     return head, tail
+
+def treeToDoublyList(root):
+    '''
+    改为循环双向链表
+    :param root:
+    :return:
+    '''
+    if root is None:
+        return None
+
+    def process(head):
+        if head is None:
+            return None
+        left = process(head.left)
+        right = process(head.right)
+        new = head
+        if left is None and right is None:
+            new.left = head
+            new.right = head
+        if left != None:
+            last = left.left
+            last.right = head
+            head.left = last
+            left.left = head
+            head.right = left
+            new = left
+        if right != None:
+            last = right.left
+            right.left = head
+            head.right = right
+            last.right = new
+            new.left = last
+        return new
+
+    return process(root)
 
 
 def travelBST(head):

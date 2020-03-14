@@ -72,8 +72,11 @@ def process(strs, i):
 
 
 
+
+
 if __name__ == '__main__':
-    strs = '...x.x.x..xx.xx......x.x.x.x'
+    strs = '.x.'
     print(light1(strs))
     print(light2(strs))
+    print(light111(strs))
 
