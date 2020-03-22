@@ -57,47 +57,58 @@ class UnionFindSet(object):
             self.sizeMap[big] = self.sizeMap.get(big) + self.sizeMap.get(small)
             self.sizeMap.pop(small)
 
+class element1(object):
+    def __init__(self, val):
+        self.val = val
+
+
 
 class bingchaji(object):
-    def __init__(self, lists):
+    def __init__(self, arr):
         self.elementMap = {}
         self.fatherMap = {}
         self.sizeMap = {}
+        for i in range(len(arr)):
+            ele = element1(i)
+            self.elementMap[i] = ele
+            self.fatherMap[ele] = ele
+            self.sizeMap[ele] = 1
 
-        for i in lists[0]:
-            element = Element(i)
-            self.elementMap[i] = element
-            self.fatherMap[element] = element
-            self.sizeMap[element] = 1
+    def findHead(self, v):
+        if v in self.elementMap:
+            stack = []
+            ele = self.elementMap[v]
+            while self.fatherMap[ele] != ele:
+                stack.append(ele)
+                ele = self.fatherMap[ele]
+            while stack != []:
+
+                self.fatherMap[stack.pop()] = ele
+            return ele
 
 
-    def findHead(self, element):
-        path = []
-        while element != self.fatherMap.get(element):
-            path.append(element)
-            element = self.fatherMap.get(element)
 
-        while path != []:
-            self.fatherMap[path.pop()] = element
 
-        return element
-
-    def isSameSet(self, a,b):
-        if self.elementMap.get(a) != None and self.elementMap.get(b) != None:
-            return self.findHead(self.elementMap.get(a)) == self.findHead(self.elementMap.get(b))
+    def isSameSet(self,a,b):
+        if a in self.elementMap and b in self.elementMap:
+            if self.findHead(a) == self.findHead(b):
+                return True
         return False
 
-    def union(self, a, b):
-        if self.elementMap.get(a) !=None and self.elementMap.get(b) != None:
-            aF = self.findHead(self.elementMap.get(a))
-            bF = self.findHead(self.elementMap.get(b))
-            big = aF if self.sizeMap.get(aF) > self.sizeMap.get(bF) else bF
-            small = bF if big == aF else aF
 
-            self.fatherMap[small] = big
+    def Union(self,a,b):
+        if a in self.elementMap and b in self.elementMap:
+            if not self.isSameSet(a,b):
+                aF = self.findHead(a)
+                bF = self.findHead(b)
+                big = aF if self.sizeMap.get(aF)>=self.sizeMap.get(bF) else bF
+                small = bF if big == aF else aF
+                self.fatherMap[small] = big
+                self.sizeMap[big] += self.sizeMap[small]
+                self.sizeMap.pop(small)
 
-            self.sizeMap[big] = self.sizeMap.get(big) + self.sizeMap.get(small)
-            self.sizeMap.pop(small)
+
+
 def findCircleNum(M):
     if M == []:
         return 0
@@ -108,7 +119,7 @@ def findCircleNum(M):
         for j in range(len(M[0])):
             if M[i][j] == 1:
                 if not a.isSameSet(i, j):
-                    a.union(i, j)
+                    a.Union(i, j)
 
     return len(a.sizeMap)
 

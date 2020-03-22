@@ -4,6 +4,8 @@
 @author: Tokyo
 @file: code_01_BFS.py
 @desc:图的宽度优先遍历
+图和二叉树不一样，可能存在环，
+所以需要一个哈希表来记录已经遍历过的点
 '''
 
 class Node(object):
@@ -30,6 +32,25 @@ def BFS(node):
             if (not next in nodeset):
                 nodeset.add(next)
                 queue.append(next)
+
+
+def bfs(node):
+    if node is None:
+        return
+    res = []
+    nodeMap = []
+    queue = []
+    queue.append(node)
+    nodeMap.append(node)
+    while queue != []:
+        ele = queue.pop(0)
+        res.append(ele.value)
+
+        for i in ele.nexts:
+            if i not in nodeMap:
+                queue.append(i)
+                nodeMap.append(i)
+    return res
 
 
 

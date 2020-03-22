@@ -37,6 +37,29 @@ def DFS(node):
                 break
 
 
+def dfs(node):
+    if node is None:
+        return []
+    res = []
+    stack = []
+    nodeMap = []
+    stack.append(node)
+    nodeMap.append(node)
+    res.append(node.value)
+    while stack != []:
+        ele = stack.pop()
+
+        for i in ele.nexts:
+            if i not in nodeMap:
+                stack.append(ele)
+                stack.append(i)
+                res.append(i.value)
+                nodeMap.append(i)
+                break
+    return res
+
+
+
 
 
 if __name__ == '__main__':

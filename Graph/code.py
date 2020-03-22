@@ -51,30 +51,65 @@ class Node2(object):
         self.feature = None
 
 
-def DT(dataframe):
-    if i ==50:
+def ugly(s):
+    if s is None or s == '' or len(s) == 1:
+        return 0
+    pre = s[0]
+    cnt = 0
+
+    return cnt
 
 
+def countNum(n, k):
+    bound = k * n - ((k + 1) * k) // 2
+    cnt = 0
+    print(bound)
 
-    maxen = 0
-    head = Node2()
-    for i in dataframe.columns:
-        info = entropy(dataframe,i, label)
-        if info >maxen:
-            maxen = info
-            max_fea = i
-    head.feature = max_fea
-    for key, value in dataframe.groupby(max_fea).items():
-        head.nexts[key] = DT(j.value)
+    for i in range(1, bound // n+1):
+
+        cnt += process1(n - 1, k, i * n)
+        print(cnt)
+    return cnt
 
 
-def entropy(dataframe, i,label):
-    pass
+def process1(end, k, aim):
+    '''
+    从0到end整数，选k个数组成aim的方法数
+    '''
+    if aim < 0:
+        return 0
+    if aim == 0:
+        if k == 0 or k == 1:
+            return 1
+        else:
+            return 0
 
+    if end == 0:
+        return 1 if aim == 0 and k == 1 else 0
+    return process1(end - 1, k - 1, aim - end) + process1(end - 1, k, aim)
+
+def minIncrementForUnique(A):
+    if A is None or A == []:
+        return 0
+    A.sort()
+
+    res = 0
+    for i in range(1, len(A)):
+        if A[i] == A[i - 1]:
+            A[i] += 1
+            res += 1
+        elif A[i] < A[i - 1]:
+            res += A[i - 1] - A[i] + 1
+            A[i] += A[i - 1] - A[i] + 1
+
+    print(A)
+    return res
 
 
 
 if __name__ == '__main__':
-    a = []
-    print(convert(a))
-    travel(convert(a))
+    # print(ugly('ABABA'))
+
+    # print(countNum(7,2))
+    print(minIncrementForUnique([3,2,1,2,1,7]))
+

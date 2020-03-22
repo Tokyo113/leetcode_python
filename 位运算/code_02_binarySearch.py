@@ -12,7 +12,7 @@ def binarySearch(arr, num):
         return False
 
     L, R = 0, len(arr)-1
-    while L < R:
+    while L <= R:
         mid = L + ((R-L)>> 1)
         if arr[mid] == num:
             return True
@@ -20,7 +20,7 @@ def binarySearch(arr, num):
             L = mid + 1
         else:
             R = mid - 1
-    return arr[L] == num
+    return False
 
 def erfenfa(arr, num):
     if arr is None or len(arr) == 0:
@@ -39,5 +39,5 @@ def erfenfa(arr, num):
 
 if __name__ == '__main__':
     a = [1,3,5,9]
-    print(binarySearch(a, 4))
-    print(erfenfa(a,4))
+    print(binarySearch(a, 3))
+    print(erfenfa(a,3))

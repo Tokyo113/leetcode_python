@@ -87,22 +87,18 @@ def robot3(N,E,K,S):
 
 
 
-def dp666(N,final, K, start):
-    dp = [[-1 for i in range(N+1)] for i in range(K+1)]
-
-    for i in range(1,N+1):
-        dp[0][i] = 1 if i == final else 0
-
-    for step in range(1,K+1):
-        for cur in range(1, N+1):
-            if cur == 1:
-                dp[step][cur] = dp[step-1][cur+1]
-            elif cur == N:
-                dp[step][cur] = dp[step-1][cur-1]
+def robot(n,M,K,P):
+    dp = [[0 for i in range(K+1)] for i in range(n+1)]
+    dp[P][0] = 1
+    for j in range(1,K+1):
+        for i in range(1,n+1):
+            if i == 1:
+                dp[i][j] = dp[i+1][j-1]
+            elif i == n:
+                dp[i][j] = dp[i-1][j-1]
             else:
-                dp[step][cur] = dp[step-1][cur-1]+dp[step-1][cur+1]
-
-    return dp[K][start]
+                dp[i][j] = dp[i+1][k-1]+dp[i-1][k-1]
+    return dp[M][K]%(10**9+7)
 
 
 
@@ -116,7 +112,7 @@ if __name__ == '__main__':
     print(robot2(9, 4, 5, 3))
     print(robot3(9,4,5,3))
     print(robot3(9,3,4,5))
-    print(dp666(9,4,5,3))
+    print(robot(9,4,5,3))
 
 
 

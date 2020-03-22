@@ -4,6 +4,12 @@
 @author: Tokyo
 @file: code_03_TopologySort.py
 @desc:
+拓扑排序
+决定做事情的顺序，有向图
+1.先看入度为0的点A，
+2.把A这个点及其影响擦掉，剩下的图中就有下一个入度为0的点
+反复执行1，2步
+
 '''
 
 
@@ -51,8 +57,10 @@ def TopologySort(graph):
     return result
 
 
+def topoSort(graph):
 
-
+    queue = []
+    zeorInMap = {}
 
 
 if __name__ == '__main__':

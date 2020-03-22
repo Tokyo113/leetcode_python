@@ -41,6 +41,23 @@ def process(strs, i):
 
 
 
+def convertDP(strs):
+    if strs is None or strs == '':
+        return 0
+
+    dp = [0 for i in range(len(strs) + 1)]
+    dp[-1] = 1
+    for i in range(len(strs) - 1, -1, -1):
+        dp[i] += dp[i + 1]
+        if i + 1 < len(strs):
+            if strs[i] == '1':
+                dp[i] += dp[i + 2]
+            elif strs[i] == '2' and int(strs[i + 1]) <= 5:
+                dp[i] += dp[i + 2]
+    return dp[0]
+
+
+
 
 
 
@@ -49,6 +66,6 @@ def process(strs, i):
 
 
 if __name__ == '__main__':
-    a = ''
+    a = '12322'
     print(convertLetterString(a))
-    print(convertLetter(a))
+    print(convertDP(a))
