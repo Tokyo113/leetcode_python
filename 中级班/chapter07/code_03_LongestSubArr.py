@@ -79,6 +79,48 @@ def findleft(arr, num):
     return index
 
 
+def findSub(arr):
+    if arr is None or arr == []:
+        return []
+    dp = [1 for i in range(len(arr))]
+    ends = []
+    for i in range(len(arr)):
+        index = findLeft2(ends,arr[i])
+        if index == -1:
+            ends.append(arr[i])
+            dp[i] = len(ends)
+        else:
+            ends[index] = arr[i]
+            dp[i] = index+1
+    maxLen = max(dp)
+    stack = []
+    pre = float('inf')
+    for i in range(len(arr)-1,-1,-1):
+        if maxLen == 0:
+            break
+        if dp[i] == maxLen and arr[i]<pre:
+            stack.append(arr[i])
+            pre = arr[i]
+            maxLen -= 1
+    print(dp)
+    return stack[::-1]
+
+
+def findLeft2(arr,aim):
+    if arr is None or arr ==[]:
+        return -1
+    L, R = 0, len(arr)-1
+    pre = -1
+    while L <=R:
+        mid = (L+R)//2
+        if arr[mid]>=aim:
+            pre = mid
+            R = mid-1
+        else:
+            L = mid+1
+    return pre
+
+
 
 def generateRandArr(maxValue, maxSize):
     import random
@@ -86,21 +128,23 @@ def generateRandArr(maxValue, maxSize):
 
 
 if __name__ == '__main__':
-    arr = [1,1,4,5,1,7]
+    arr = [1,1,4,7,9,8]
     print(maxLength(arr))
     print(maxLength1(arr))
+    print(findSub(arr))
 
-    maxValue = 50
-    maxSize = 20
-    testTime = 100
-    for i in range(testTime):
-        arr = generateRandArr(maxValue, maxSize)
-        a = maxLength(arr)
-        b = maxLength1(arr)
 
-        if a != b:
-            print(arr)
-            print(a, b)
-            break
+    # maxValue = 50
+    # maxSize = 20
+    # testTime = 100
+    # for i in range(testTime):
+    #     arr = generateRandArr(maxValue, maxSize)
+    #     a = maxLength(arr)
+    #     b = maxLength1(arr)
+    #
+    #     if a != b:
+    #         print(arr)
+    #         print(a, b)
+    #         break
 
 

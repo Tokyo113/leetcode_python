@@ -25,7 +25,23 @@ def process(i, start, end, other):
 
 
 
+def hanoi(n):
+    return process1(n,'左','中','右')
+
+def process1(n,from1,by,end):
+    if n == 1:
+        print('move'+str(n)+'from'+from1+'to'+end)
+        return
+    process1(n-1,from1,end,by)
+    print('move'+str(n)+'from'+from1+'to'+end)
+    process1(n-1,by,from1,end)
+
+
+
+
+
+
 if __name__ == '__main__':
-    hanoi11(6)
+    hanoi(3)
     print('===')
     Hanoi(3)

@@ -59,42 +59,42 @@ def getNextArray(m):
 
 
 
-
-def kmppp(a,b):
-    if a is None or b is None or len(a)<len(b):
+def kmppp(s,m):
+    if len(m)>len(s):
         return -1
-    i1, i2 = 0, 0
-    record = getNextarr(b)
-    while i1 < len(a) and i2 < len(b):
-        if a[i1] == b[i2]:
+    nextArr = getnextArr(m)
+    i1,i2 = 0, 0
+    while i1<len(s) and i2<len(m):
+        if s[i1] == m[i2]:
             i1 += 1
             i2 += 1
         else:
             if i2 == 0:
                 i1 += 1
             else:
-                i2 = record[i2]
-    return  i1-i2 if i2 == len(b) else -1
+                i2 = nextArr[i2]
+    return i1-i2 if i2 == len(m) else -1
 
-def getNextarr(s):
-    if len(s) == 1:
-        return [-1]
-    arr = [0 for i in range(len(s))]
-    arr[0] = -1
-    arr[1] = 0
+def getnextArr(s):
+    if s == '':
+        return []
+    pArr = [0 for i in range(len(s))]
+    pArr[0] = -1
+    c = 0
     i = 2
-    cn = 0
     while i < len(s):
-        if s[i-1] == s[cn]:
-            arr[i] = cn+1
-            cn += 1
-            i+= 1
+        if s[i-1] == s[c]:
+            pArr[i] = c+1
+            c += 1
+            i += 1
         else:
-            if cn > 0:
-                cn = arr[cn]
+            if c >0:
+                c = pArr[c]
             else:
+                pArr[i] = 0
                 i += 1
-    return arr
+    return pArr
+
 
 def manacher(s):
     if s is None or s == '':
@@ -137,7 +137,7 @@ if __name__ == '__main__':
     # python str 类型自带find方法，作用和KMP一样
     print(a.find(b))
     print('====')
-    print(manacher(c))
+    # print(manacher(c))
  
 
 

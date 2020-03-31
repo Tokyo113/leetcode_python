@@ -140,6 +140,64 @@ class trieTree(object):
 
 
 
+class zidianNode(object):
+    def __init__(self):
+        self.path = 0
+        self.ends = 0
+        self.nexts = [None for i in range(26)]
+
+class zidianshu(object):
+    def __init__(self):
+        self.root = zidianNode()
+
+    def insert(self, words):
+        if words is None:
+            return
+        node = self.root
+        for i in words:
+            index = ord(i)-ord('a')
+            if node.nexts[index] == None:
+                node.nexts[index] = zidianNode()
+            node = node.nexts[index]
+            node.path +=1
+        node.ends += 1
+
+
+    def search(self,word):
+        if word is None:
+            return 0
+        node = self.root
+        for i in word:
+            index = ord(i)-ord('a')
+            if node.nexts[index] == None:
+                return 0
+            node = node.nexts[index]
+        return node.ends
+
+    def prefixNumber(self,word):
+        if word is None:
+            return 0
+        node = self.root
+        for i in word:
+            index = ord(i)-ord('a')
+            if node.nexts[index] is None:
+                return 0
+            node = node.nexts[index]
+        return node.path
+
+    def delete(self,word):
+        if self.search(word) == 0:
+            return
+        node = self.root
+        for i in word:
+            index = ord(i)-ord('a')
+            if node.nexts[index].path ==1:
+                node.nexts[index] = None
+                return
+            node = node.nexts[index]
+            node.path -= 1
+        node.ends -= 1
+
 
 
 
@@ -174,7 +232,7 @@ search("b..") -> true
 
 
 if __name__ == '__main__':
-    trie = Trie()
+    trie = zidianshu()
     print(trie.search("zuo"))
     trie.insert("zuo")
     print(trie.search("zuo"))
@@ -182,16 +240,16 @@ if __name__ == '__main__':
     print(trie.search("zuo"))
     trie.insert("zuo")
     trie.insert("zuo")
-    trie.delete("zuo")
+    # trie.delete("zuo")
     print(trie.search("zuo"))
-    trie.delete("zuo")
-    print(trie.search("zuo"))
+    # trie.delete("zuo")
+    # print(trie.search("zuo"))
     trie.insert("zuoa")
     trie.insert("zuoac")
     trie.insert("zuoab")
     trie.insert("zuoad")
-    trie.delete("zuoa")
-    print(trie.search("zuoa"))
+    # trie.delete("zuoa")
+    # print(trie.search("zuoa"))
     print(trie.prefixNumber("zuo"))
 
     print("=="*50)

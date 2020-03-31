@@ -55,6 +55,26 @@ def process(s1, s2, i1, i2, ic,dc,rc):
     p3 = process(s1,s2,i1-1,i2-1,ic,dc,rc)+rc
     return min(p1,p2,p3)
 
+def convert1(s1, s2, ic,dc,rc):
+    if s1 is None or s2 is None:
+        return
+    if s1 == '':
+        return len(s2)*ic
+    if s2 == '':
+        return len(s1)*dc
+    return process1(s1,s2, ic,dc,rc,len(s1),len(s2))
+def process1(s1,s2,ic,dc,rc,i,j):
+    if j == 0 and i == 0:
+        return 0
+    if i == 0:
+        return ic*j
+    if j == 0:
+        return dc*i
+    if s1[i-1] == s2[j-1]:
+        return process1(s1,s2,ic,dc,rc,i-1,j-1)
+    return min(process1(s1,s2,ic,dc,rc,i-1,j)+dc, process1(s1,s2,ic,dc,rc,i-1,j-1)+rc,process1(s1,s2,ic,dc,rc,i,j-1)+ic)
+
+
 
 def convertDP(s1,s2,ic,dc,rc):
     if s1 is None or s2 is None:
@@ -81,14 +101,42 @@ def convertDP(s1,s2,ic,dc,rc):
     return dp[len(s1)-1][len(s2)-1]
 
 
+def editStr(s1, s2, ic, dc, rc):
+    if s1 == s2:
+        return 0
+    if s2 == '':
+        return len(s1) * dc
+    if s1 == '':
+        return len(s2) * ic
+    n, m = len(s1), len(s2)
+    dp = [0 for i in range(len(s2) + 1)]
+    for j in range(1, m + 1):
+        dp[j] = ic * j
+    for i in range(1, n + 1):
+        for j in range(0, m + 1):
+            tmp = dp[j]
+            if j == 0:
+                dp[0] = dc*i
+            else:
+                tmp = dp[j]
+                if s1[i - 1] == s2[j - 1]:
+                    dp[j] = pre
+                else:
+                    dp[j] = min(dp[j - 1] + ic, dp[j] + dc, pre+ rc)
+            pre = tmp
+
+
+    return dp[m]
 
 
 if __name__ == '__main__':
 
-    str1 = "ab12cd3"
-    str2 = "abcdf"
-    print(convert(str1,str2,5,3,2))
-    print(convertDP(str1,str2,5,3,2))
+    str1 = "adsdfsgsgc"
+    str2 = "abaresafcwdsrgdfbhdfhethtfdsvsvrgrgrg"
+    # print(convert(str1,str2,5,3,100))
+    # print(convert1(str1,str2,5,3,100))
+    print(convertDP(str1,str2,5,3,100))
+    print(editStr(str1,str2,5,3,100))
 
     str1 = "abcdf"
     str2 = "ab12cd3"

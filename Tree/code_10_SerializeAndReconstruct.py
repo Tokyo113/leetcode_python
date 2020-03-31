@@ -133,46 +133,73 @@ def getNode(strs):
         return None
     return Node(int(pp))
 
+def serialize(root):
+    """Encodes a tree to a single string.
 
-
-
-
-def xuliehua(head):
-    if head is None:
+    :type root: TreeNode
+    :rtype: str
+    """
+    if root is None:
         return '#!'
+    res = ''
+    queue = []
+    queue.append(root)
+    while queue:
+        pp = queue.pop()
+        if pp == '#!':
+            res += pp
+        else:
+            res += str(pp.ele) + '!'
 
-    res = xuliehua(head.left)
-    res += str(head.ele)+'!'
-    res += xuliehua(head.right)
+            if pp.left is None:
+                queue.append('#!')
+            else:
+                queue.append(pp.left)
+            if pp.right is None:
+                queue.append('#!')
+            else:
+                queue.append(pp.right)
     return res
 
-def fanxuliehua(str):
-    str = str.split('!')
+def deserialize( data):
+    """Decodes your encoded data to tree.
 
-    return process(str)
-def process(str):
-    if str == []:
+    :type data: str
+    :rtype: TreeNode
+    """
+    if data == '':
         return
-    value = str.pop(0)
-    if value == '#':
-        return None
-    head = Node(0)
-    head.left = process(str)
-    head.ele = int(value)
-    head.right = process(str)
-
+    queue = []
+    strs = data.split('!')
+    head = Node(strs.pop(0))
+    queue.append(head)
+    while queue:
+        pp = queue.pop(0)
+        left = strs.pop(0)
+        right = strs.pop(0)
+        if left == '#':
+            pp.left = None
+        else:
+            pp.left = Node(int(left))
+            queue.append(pp.left)
+        if right == '#':
+            pp.right = None
+        else:
+            pp.right = Node(int(right))
+            queue.append(pp.right)
     return head
-
 
 
 if __name__ == '__main__':
     head1 = None
+
     str1 = serialByPre(head1)
     print("pre_order:")
     print(str1)
     print(reconByPreString(str1))
-    print("in_order:")
-    print(serial_in(head1))
+    print("level_order:")
+
+
 
 
 
@@ -190,14 +217,16 @@ if __name__ == '__main__':
     print('按层遍历：')
     print(serializeByLevel(head))
     aa = serializeByLevel(head)
-    head_level = reconstructByLevel(aa)
-    print(serializeByLevel(head_level))
+    # head_level = reconstructByLevel(aa)
+    # print(serializeByLevel(head_level))
+    print(serialize(head))
 
     print('='*40)
-    sss = xuliehua(head)
-    head222 = fanxuliehua(sss)
-    print(sss)
-    print(xuliehua(head222))
+    a = [41, 37, 44, 24, 39, 42, 48, 1, 35, 38, 40 , 43, 46, 49, 0, 2, 30, 36,  45,
+     47, 4, 29, 32 , 3, 9, 26,  31, 34,7, 11, 25, 27,  33, 6, 8, 10, 16, 28, 5,
+     15, 19,    12, 18, 20,  13, 17,  22, 14, 21, 23]
+    print(len(a),len(set(a)))
+
 
 
 

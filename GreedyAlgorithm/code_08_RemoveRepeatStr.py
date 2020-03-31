@@ -37,5 +37,5 @@ def remove(str):
 
 if __name__ == '__main__':
 
-    print(remove('acbc'))
+    print(remove('eebcbeb'))
     print(remove('dbcacbca'))
