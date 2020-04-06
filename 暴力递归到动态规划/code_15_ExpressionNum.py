@@ -79,46 +79,48 @@ def process(exp, desired, L, R):
                 res += process(exp, False, L, i - 1) * process(exp, False, i + 1, R)
     return res
 
-def numDP(exp, desired):
-    if exp == '' or exp is None:
+
+def expressionDP(strs,aim):
+    if strs is None or strs == '' or isvalid(strs)== False:
         return 0
-    if not isvalid(exp):
-        return 0
-    n = len(exp)
+    if len(strs) == 1:
+        if strs == '1':
+            return 1 if aim else 0
+        else:
+            return 1 if not aim else 0
+    n = len(strs)
     dpTrue = [[0 for i in range(n)] for i in range(n)]
     dpFalse = [[0 for i in range(n)] for i in range(n)]
-    for i in range(0, n, 2):
-        dpTrue[i][i] = 1 if str[i] == '1' else 0
-        dpFalse[i][i] = 1 if str[i] == '0' else 0
-    # i j 要保证是数字0和1的位置，所以步长是2
-    for i in range(n-3, -1, -2):
-        for j in range(i+2, n, 2):
-            for k in range(i+1, j, 2):
-                if str[k] == '&':
-                    dpTrue[i][j] += dpTrue[i][k-1]+dpTrue[k+1][j]
-                    dpFalse[i][j] += dpTrue[i][k-1]+dpFalse[k+1][j]
-                    dpFalse[i][j] += dpFalse[i][k-1]+dpTrue[k+1][j]
-                    dpFalse[i][j] += dpFalse[i][k-1]+dpFalse[k+1][j]
+    for i in range(0,n,2):
 
-                elif str[k] == '^':
-                    dpTrue[i][j] += dpTrue[i][k-1]+dpFalse[k+1][j]
-                    dpTrue[i][j] += dpFalse[i][k - 1] + dpTrue[k + 1][j]
-                    dpFalse[i][j] += dpTrue[i][k-1]+dpTrue[k+1][j]
-                    dpFalse[i][j] += dpFalse[i][k - 1] + dpFalse[k + 1][j]
-
+        dpTrue[i][i] = 1 if strs[i] == '1' else 0
+        dpFalse[i][i] = 1 if strs[i] == '0' else 0
+    # i 和j保证是0或者1的位置
+    for i in range(n-3,-1,-2):
+        for j in range(i+2,n,2):
+            for k in range(i+1,j,2):
+                if strs[k] == '&':
+                    dpTrue[i][j] += dpTrue[i][k-1]*dpTrue[k+1][j]
+                    dpFalse[i][j] += dpTrue[i][k-1]*dpFalse[k+1][j]
+                    dpFalse[i][j] += dpFalse[i][k - 1] * dpTrue[k + 1][j]
+                    dpFalse[i][j] += dpFalse[i][k - 1] * dpFalse[k + 1][j]
+                elif strs[k] == '|':
+                    dpTrue[i][j] += dpTrue[i][k - 1] * dpFalse[k + 1][j]
+                    dpTrue[i][j] += dpFalse[i][k - 1] * dpTrue[k + 1][j]
+                    dpTrue[i][j] += dpTrue[i][k - 1] * dpTrue[k + 1][j]
+                    dpFalse[i][j] += dpFalse[i][k - 1] * dpFalse[k + 1][j]
                 else:
-                    dpTrue[i][j] += dpTrue[i][k - 1] + dpTrue[k + 1][j]
-                    dpTrue[i][j] += dpTrue[i][k - 1] + dpFalse[k + 1][j]
-                    dpTrue[i][j] += dpFalse[i][k - 1] + dpTrue[k + 1][j]
-                    dpFalse[i][j] += dpFalse[i][k - 1] + dpFalse[k + 1][j]
-
-    return dpTrue[0][n-1] if desired else dpFalse[0][n-1]
+                    dpFalse[i][j] += dpTrue[i][k - 1] * dpTrue[k + 1][j]
+                    dpFalse[i][j] += dpFalse[i][k - 1] * dpFalse[k + 1][j]
+                    dpTrue[i][j] += dpTrue[i][k - 1] * dpFalse[k + 1][j]
+                    dpTrue[i][j] += dpFalse[i][k - 1] * dpTrue[k + 1][j]
+    return dpTrue[0][n-1] if aim else dpFalse[0][n-1]
 
 
 
 
 if __name__ == '__main__':
     str =  "1^0&0|1&1^0&0^1|0|1&1"
-    desired = True
-    print(numStr(str, desired))
-    print(numDP(str, desired))
+    desired =False
+    # print(numStr(str, desired))
+    print(expressionDP(str, desired))

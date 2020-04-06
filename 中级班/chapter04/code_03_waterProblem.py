@@ -25,6 +25,22 @@ def waterProblem(arr):
 
     return res
 
+
+def waterProblem2(arr):
+    '''
+    使用辅助数组记录最大值
+    :param arr:
+    :return:
+    '''
+    if arr is None or arr == []:
+        return 0
+    leftMax = [max(arr[:i+1]) for i in range(len(arr))]
+    rightMax = [max(arr[i+2:]) for i in range(len(arr)-2)]
+    res = 0
+    for i in range(1,len(arr)-1):
+        res += max(min(leftMax[i-1],rightMax[i-1])-arr[i],0)
+    return res
+
 def waterProblem1(arr):
     if len(arr) <= 2:
         return 0
@@ -48,17 +64,20 @@ def generateRandomArray(maxValue, maxSize):
     return [int(random.random()*(maxValue+1)) for i in range(int((maxSize+1)*random.random()))]
 
 if __name__ == '__main__':
-    testtime = 100
-    maxValue = 50
-    maxSize = 20
-    succeed = True
-    for i in range(testtime):
-        arr = generateRandomArray(maxValue, maxSize)
-        a = waterProblem(arr)
-        b = waterProblem1(arr)
-        if a != b:
-            print(a, b)
-            print('fucking fucked!!!')
-            succeed = False
-            break
-    print('nice!!' if succeed else 'fuck')
+    # testtime = 100
+    # maxValue = 50
+    # maxSize = 20
+    # succeed = True
+    # for i in range(testtime):
+    #     arr = generateRandomArray(maxValue, maxSize)
+    #     a = waterProblem(arr)
+    #     b = waterProblem1(arr)
+    #     if a != b:
+    #         print(a, b)
+    #         print('fucking fucked!!!')
+    #         succeed = False
+    #         break
+    # print('nice!!' if succeed else 'fuck')
+    arr = [0,1,0,2,1,0,1,3,2,1,2,1]
+    print(waterProblem(arr))
+    print(waterProblem2(arr))

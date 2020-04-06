@@ -69,7 +69,62 @@ def substr(s1,s2):
     return ''.join(final[::-1])
 
 
+def longest(s1,s2):
+    if s1 == s2:
+        return len(s2)
+    dp = [[0 for i in range(len(s2))] for i in range(len(s1))]
+    dp[0][0] = 1 if s1[0] == s2[0] else 0
+    for i in range(1,len(s2)):
+        dp[0][i] = 1 if s1[0] == s2[i] else dp[0][i-1]
+    for i in range(1,len(s1)):
+        dp[i][0] = 1 if s1[i]==s2[0] else dp[i-1][0]
+    for i in range(1,len(s1)):
+        for j in range(1,len(s2)):
+            if s1[i] == s2[j]:
+                dp[i][j] = dp[i-1][j-1]+1
+            else:
+                dp[i][j] = max(dp[i-1][j-1],dp[i-1][j],dp[i][j-1])
+    res= dp[len(s1)-1][len(s2)-1]
+    r,c = len(s1)-1,len(s2)-1
+    strs =''
+    while res>0:
+        if s1[r] == s2[c]:
+            strs+= s1[r]
+            r -= 1
+            c -= 1
+            res -= 1
+        else:
+            if dp[r-1][c-1] == res:
+                r -= 1
+                c -= 1
+            elif dp[r-1][c] == res:
+                r -= 1
+            else:
+                c -= 1
+    return strs[::-1]
 
+
+
+def longest2(s1,s2):
+    if s1 == s2:
+        return len(s2)
+    dp = [0 for i in range(len(s2))]
+    dp[0] = 1 if s1[0] == s2[0] else 0
+    for i in range(1,len(s2)):
+        dp[i] = 1 if s1[0] == s2[i] else dp[i-1]
+
+    for i in range(1,len(s1)):
+        for j in range(0,len(s2)):
+            tmp = dp[j]
+            if j == 0:
+                dp[j] = 1 if s1[i] == s2[j] else dp[j]
+            else:
+                if s1[i] == s2[j]:
+                    dp[j] = pre+1
+                else:
+                    dp[j] = max(pre,dp[j],dp[j-1])
+            pre = tmp
+    return dp[len(s2)-1]
 
 
 
@@ -83,6 +138,7 @@ def printMatrix(arr):
 
 
 if __name__ == '__main__':
-    s1 = '12345'
-    s2 = 'asdgr'
+    s1 = '1234dfgr5p'
+    s2 = 'asdgr5'
     print(substr(s1,s2))
+    print(longest(s1,s2))
