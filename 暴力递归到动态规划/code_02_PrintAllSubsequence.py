@@ -73,8 +73,8 @@ if __name__ == '__main__':
     b = printAllSubsequence(a)
     print(b)
     print(findsub(a))
-    print(findppp(a))
-    print(findppp(a) == b)
+    # print(findppp(a))
+    # print(findppp(a) == b)
 
 
 
